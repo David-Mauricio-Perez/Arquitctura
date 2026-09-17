@@ -1,0 +1,628 @@
+<mxfile host="app.diagrams.net" version="24.7.7">
+  <diagram name="1 · Capas (Inciso 1)" id="capas-1">
+    <mxGraphModel dx="1936" dy="887" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="940" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t1" parent="1" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" value="&amp;nbsp;Capas de Clean Architecture — python-clean-architecture-master" vertex="1">
+          <mxGeometry height="30" width="1080" x="100" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="B4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=13;fontStyle=1" value="CAPA 4 — FRAMEWORKS / DRIVERS (motor externo) · tecnología" vertex="1">
+          <mxGeometry height="160" width="1080" x="100" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="C41" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11" value="FastAPI + Uvicorn&lt;br&gt;servidor web" vertex="1">
+          <mxGeometry height="70" width="150" x="140" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="C42" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11" value="PostgreSQL&lt;br&gt;base de datos" vertex="1">
+          <mxGeometry height="70" width="150" x="315" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="C43" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11" value="SQLModel / SQLAlchemy&lt;br&gt;ORM" vertex="1">
+          <mxGeometry height="70" width="150" x="490" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="C44" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11" value="Passlib · bcrypt&lt;br&gt;hash passwords" vertex="1">
+          <mxGeometry height="70" width="150" x="665" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="C45" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11" value="JWT&lt;br&gt;tokens de acceso" vertex="1">
+          <mxGeometry height="70" width="150" x="840" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="C46" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11" value="Alembic&lt;br&gt;migraciones" vertex="1">
+          <mxGeometry height="70" width="150" x="1015" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="B3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=13;fontStyle=1" value="CAPA 3 — ADAPTADORES DE INTERFAZ · app/infra (implementaciones)" vertex="1">
+          <mxGeometry height="160" width="1080" x="100" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="A31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11" value="Routers v1&lt;br&gt;user.py · auth.py" vertex="1">
+          <mxGeometry height="70" width="160" x="140" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A32" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11" value="DI FastAPI&lt;br&gt;dependencies/" vertex="1">
+          <mxGeometry height="70" width="160" x="315" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A33" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11" value="UserRepo (impl)&lt;br&gt;repositories/user.py" vertex="1">
+          <mxGeometry height="70" width="160" x="490" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A34" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11" value="UserUnitOfWork (impl)&lt;br&gt;unit_of_work/" vertex="1">
+          <mxGeometry height="70" width="160" x="665" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A35" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11" value="Hasher (impl)&lt;br&gt;security/crypto.py" vertex="1">
+          <mxGeometry height="70" width="160" x="840" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="A36" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11" value="JWT provider&lt;br&gt;auth/jwt.py" vertex="1">
+          <mxGeometry height="70" width="160" x="1015" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="B2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=13;fontStyle=1" value="CAPA 2 — APLICACIÓN · CASOS DE USO · app/core/usecases/user" vertex="1">
+          <mxGeometry height="160" width="1080" x="100" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="U1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11" value="CreateUserUsecase" vertex="1">
+          <mxGeometry height="70" width="190" x="150" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="U2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11" value="GetUserUsecase" vertex="1">
+          <mxGeometry height="70" width="190" x="360" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="U3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11" value="UpdateUserUsecase" vertex="1">
+          <mxGeometry height="70" width="190" x="570" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="U4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11" value="DeleteUserUsecase" vertex="1">
+          <mxGeometry height="70" width="190" x="780" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="U5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11" value="AuthenticateUserUsecase" vertex="1">
+          <mxGeometry height="70" width="190" x="990" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="B1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=13;fontStyle=1" value="CAPA 1 — DOMINIO (NÚCLEO) · app/core — 0 dependencias de infraestructura" vertex="1">
+          <mxGeometry height="170" width="1080" x="100" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="D1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11" value="Entidad User&lt;br&gt;entities/user.py" vertex="1">
+          <mxGeometry height="80" width="210" x="140" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="D2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11" value="Value Objects&lt;br&gt;Email · Password · ID" vertex="1">
+          <mxGeometry height="80" width="230" x="370" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="D3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11" value="DTOs&lt;br&gt;request / response" vertex="1">
+          <mxGeometry height="80" width="170" x="620" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="D4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11" value="Excepciones&lt;br&gt;DomainException + 4" vertex="1">
+          <mxGeometry height="80" width="170" x="800" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="D5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" value="PUERTOS (Protocol)&lt;br&gt;UserRepo · UserUnitOfWork · Hasher" vertex="1">
+          <mxGeometry height="80" width="200" x="980" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="eB34" edge="1" parent="1" source="B3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" target="B4" value="usa frameworks / drivers">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB32" edge="1" parent="1" source="B3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" target="B2" value="invoca use cases (inyección de dependencias)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eB21" edge="1" parent="1" source="B2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6c8ebf;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" target="B1" value="depende de entidades + puertos (Protocol)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ruleArrow" edge="1" parent="1" style="html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#9673a6;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="80" as="sourcePoint" />
+            <mxPoint x="60" y="800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rl" parent="1" style="text;html=1;horizontal=0;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fontColor=#9673a6" value="REGLA DE DEPENDENCIAS" vertex="1">
+          <mxGeometry height="200" width="70" x="10" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="V1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" value="✓ VERIFICADO&lt;br&gt;app/core → app/infra : 0 imports" vertex="1">
+          <mxGeometry height="70" width="310" x="140" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="V2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" value="✓ VERIFICADO&lt;br&gt;app/infra → app/core : 18 imports" vertex="1">
+          <mxGeometry height="70" width="310" x="470" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="V3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" value="VEREDICTO: las 4 capas están presentes · dependencia invertida (DIP) ✓" vertex="1">
+          <mxGeometry height="70" width="380" x="800" y="830" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="2 · Flujo de petición (Inciso 2)" id="flujo-2">
+    <mxGraphModel dx="1420" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1240" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t2" value="Inciso 2 · Flujo de la petición — POST /api/v1/users (crear usuario)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="1140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="F1" value="① CLIENTE HTTP&lt;br&gt;POST /api/v1/users · JSON {name, email, password}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="60" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F2" value="② APP FASTAPI&lt;br&gt;create_app() → include_router(/api/v1)&lt;br&gt;app/infra/api/app.py:31" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="170" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F3" value="③ ROUTER create()&lt;br&gt;recibe DTO CreateUserRequest · inyecta usecase&lt;br&gt;app/infra/api/routers/v1/user.py:29" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="280" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F4" value="④ INYECCIÓN DE DEPENDENCIAS&lt;br&gt;get_create_user_usecase(uow, hasher)&lt;br&gt;app/infra/api/dependencies/usecases/user.py:16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="390" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F5" value="⑤ CASO DE USO · CreateUserUsecase.execute(dto)&lt;br&gt;app/core/usecases/user/create_user.py:21" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="500" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SubG" value="Pasos internos del caso de uso ⑤ (solo dominio + puertos)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#999999;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontSize=12;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="610" width="1140" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="S1" value="5a · Validar Value Objects&lt;br&gt;Email(email) · Password(password)&lt;br&gt;app/core/value_objects/" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S2" value="5b · Regla de unicidad&lt;br&gt;uow.user_repo.get_by_email(email)&lt;br&gt;puerto UserRepo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="370" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S3" value="5c · Hash del password&lt;br&gt;hasher.hash(password)&lt;br&gt;puerto Hasher → bcrypt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S4" value="5d · Construir entidad User&lt;br&gt;id = ID.generate()&lt;br&gt;app/core/entities/user.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="930" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F6" value="⑥ UNIT OF WORK&lt;br&gt;async with uow → commit / rollback · session.close()&lt;br&gt;core/ports/unit_of_work.py:11 · infra/db/unit_of_work/base.py:5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="770" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F7" value="⑦ REPOSITORIO · UserRepo.save(user)&lt;br&gt;Entidad → DBUser (SQLModel) · session.add()&lt;br&gt;infra/db/repositories/user.py:48" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="880" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F8" value="⑧ POSTGRESQL&lt;br&gt;INSERT users (al commit)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="990" width="400" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R1" value="COMMIT ✓&lt;br&gt;UserResponse DTO&lt;br&gt;{id, name, email} — sin hash" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="880" y="990" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R2" value="RESPUESTA HTTP 201 Created&lt;br&gt;JSON {id, name, email}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="880" y="60" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="X1" value="EXCEPCIONES DE DOMINIO&lt;br&gt;InvalidUserError · UserAlreadyExistsError&lt;br&gt;UserNotFoundError · core/exceptions.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="X2" value="MANEJO EN ROUTER&lt;br&gt;HTTPException → 400 · 409 · 404 · 422&lt;br&gt;routers/v1/user.py:32-52" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="HTTP request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F1" target="F2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="ruta /api/v1/users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F2" target="F3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="Depends(...)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F3" target="F4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="usecase instanciado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F4" target="F5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5a" value="ejecuta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F5" target="SubG">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5b" value="entidad User" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="SubG" target="F6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="uow.user_repo (puerto)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#9673a6;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F6" target="F7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" value="INSERT (commit)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F7" target="F8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eR1" value="commit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="F8" target="R1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eR2" value="retorno: el DTO sube por capas&lt;br&gt;repo → uow → usecase → router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0" edge="1" parent="1" source="R1" target="R2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eR3" value="JSON 201 al cliente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="R2" target="F1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eX1" value="raise" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="F5" target="X1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eX2" value="propaga" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0" edge="1" parent="1" source="X1" target="X2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eX3" value="error HTTP 400 / 409 / 404 / 422" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="X2" target="F1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LG" value="Leyenda — Azul: Dominio (core) · Verde: Aplicación (use case y respuesta DTO) · Morado: Puertos / Unit of Work · Naranja: Adaptadores (API, DI, repositorio) · Rojo: Frameworks/Drivers y manejo de errores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="1120" width="1140" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="3 · Diagrama de Componentes (UML)" id="componentes-3">
+    <mxGraphModel dx="1420" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1350" pageHeight="950" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t3" value="Diagrama de Componentes Estándar UML 2.5 — python-clean-architecture-master (User + Auth)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="20" width="1250" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA PRESENTACIÓN / API -->
+        <mxCell id="L1" value="«subsystem»&#xa;Capa Presentación / Adaptadores de Entrada (app/infra/api)" style="shape=folder;fontStyle=1;tabWidth=280;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="60" width="1250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="CP1" value="«component»&#xa;App FastAPI&#xa;[app/infra/api/app.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="110" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP2" value="«component»&#xa;UserRouter&#xa;[routers/v1/user.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="110" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP3" value="«component»&#xa;AuthRouter&#xa;[routers/v1/auth.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="110" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP4" value="«component»&#xa;DependencyInjector&#xa;[dependencies/]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="110" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP5" value="«component»&#xa;JWTAuthProvider&#xa;[infra/auth/jwt.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="110" width="220" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA APLICACIÓN -->
+        <mxCell id="L2" value="«subsystem»&#xa;Capa Aplicación / Casos de Uso (app/core/usecases)" style="shape=folder;fontStyle=1;tabWidth=250;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="240" width="1250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="CP6" value="«component»&#xa;UserAppService&#xa;[Create·Get·Update·Delete]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="180" y="290" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP7" value="«component»&#xa;AuthAppService&#xa;[AuthenticateUserUsecase]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="290" width="260" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="IF1" value="«interface»&#xa;IUserServices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="225" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="IF2" value="«interface»&#xa;IAuthServices" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="225" width="110" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA DOMINIO / CORE -->
+        <mxCell id="L3" value="«subsystem»&#xa;Capa Dominio / Núcleo de Reglas de Negocio (app/core)" style="shape=folder;fontStyle=1;tabWidth=270;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="420" width="1250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="CP8" value="«component»&#xa;DomainCore&#xa;[entities/user.py · VOs]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="470" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="P1" value="«interface»&#xa;UserRepo (Port)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="475" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="P2" value="«interface»&#xa;UserUnitOfWork (Port)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="475" width="160" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="P3" value="«interface»&#xa;Hasher (Port)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="475" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="P4" value="DTOs &amp; Exceptions&#xa;[CreateUserRequest · UserResponse]" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=10;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="980" y="475" width="260" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA INFRAESTRUCTURA & PERSISTENCIA -->
+        <mxCell id="L4" value="«subsystem»&#xa;Capa Infraestructura / Persistencia y Seguridad (app/infra)" style="shape=folder;fontStyle=1;tabWidth=300;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="630" width="1250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="CP9" value="«component»&#xa;SQLModelUserRepo&#xa;[repositories/user.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="680" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP10" value="«component»&#xa;SQLModelUserUoW&#xa;[unit_of_work/user.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="680" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="CP11" value="«component»&#xa;BcryptCryptoHasher&#xa;[infra/security/crypto.py]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="680" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="EXT" value="«component»&#xa;PostgreSQL DBMS&#xa;[driver: asyncpg]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="680" width="200" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- CONECTORES UML ESTÁNDAR -->
+        <!-- App mounts routers -->
+        <mxCell id="e1" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP1" target="CP2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP1" target="CP3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Routers to Interfaces -->
+        <mxCell id="e3" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP2" target="IF1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP3" target="IF2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Realization of Application Interfaces -->
+        <mxCell id="e5" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP6" target="IF1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP7" target="IF2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Use Cases use Ports (DIP) -->
+        <mxCell id="e7" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP6" target="P1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP6" target="P2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP6" target="P3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP7" target="P3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP6" target="CP8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Infrastructure Realization of Domain Ports -->
+        <mxCell id="e12" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#9673a6;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP9" target="P1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#9673a6;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP10" target="P2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#9673a6;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP11" target="P3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Infra to DB -->
+        <mxCell id="e15" value="«use» session" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP10" target="CP9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="SQL async" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="CP9" target="EXT">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="«use» auth token" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=1;fontSize=10;" edge="1" parent="1" source="CP3" target="CP5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="LG" value="Notación UML 2.5 Estándar: Rectángulo con pestañas = «component» · Rectángulo con pestaña = «subsystem» · «interface» = Puerto/Contrato · Flecha discontinua abierta (--&gt;) = «use» (Dependencia requerida) · Flecha discontinua cerrada (--|&gt;) = «realize» (Realización de interfaz / Inversión de dependencias DIP). Cumple Clean Architecture: las capas exteriores implementan o usan contratos de las capas interiores." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="50" y="830" width="1250" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="4 · Componentes Rol (UML Estándar · Relación 1:1)" id="rol-componentes-4">
+    <mxGraphModel dx="1420" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1350" pageHeight="1020" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="r4t" value="Diagrama de Componentes Estándar UML 2.5 — Entidad ROL y Relación 1:1 con USER" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="20" width="1250" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA PRESENTACIÓN / API -->
+        <mxCell id="R4P" value="«subsystem»&#xa;Capa Presentación / API REST (app/infra/api)" style="shape=folder;fontStyle=1;tabWidth=250;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="60" width="1250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="R4P1" value="«component»&#xa;RolRouter&#xa;[routers/v1/rol.py]&#xa;POST / · GET /{id}&#xa;GET /user/{user_id}&#xa;PATCH /{id} · DELETE /{id}" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="100" width="260" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R4P2" value="«component»&#xa;RolDIProvider&#xa;[dependencies/usecases/rol.py]&#xa;Inyecta Create, Get, Update,&#xa;Delete use cases con UoW" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#d79b00;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="100" width="240" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- INTERFAZ DE APLICACIÓN -->
+        <mxCell id="R4IF" value="«interface»&#xa;IRolAppServices&#xa;+ execute(CreateRolRequest): RolResponse&#xa;+ execute_by_user_id(user_id): RolResponse" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="230" width="280" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA APLICACIÓN -->
+        <mxCell id="R4A" value="«subsystem»&#xa;Capa Aplicación / Casos de Uso (app/core/usecases/rol)" style="shape=folder;fontStyle=1;tabWidth=280;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="1250" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="R4A1" value="«component»&#xa;CreateRolUsecase&#xa;[Reglas 1:1]:&#xa;1. user_repo.get_by_id(user_id) [Existe]&#xa;2. rol_repo.get_by_name(name) [Único]&#xa;3. rol_repo.get_by_user_id(user_id) [Max 1 rol]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="290" width="310" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R4A2" value="«component»&#xa;GetRolUsecase&#xa;+ execute(rol_id)&#xa;+ execute_by_user_id(user_id)&#xa;[Búsqueda directa 1:1]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="290" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R4A3" value="«component»&#xa;UpdateRolUsecase&#xa;+ execute(rol_id, UpdateRol)&#xa;Actualiza name (único)&#xa;Conserva user_id (inmutable)" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="290" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R4A4" value="«component»&#xa;DeleteRolUsecase&#xa;+ execute(rol_id)&#xa;Elimina rol vía UoW" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="930" y="290" width="190" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA DOMINIO (INCLUYENDO RELACIÓN 1:1) -->
+        <mxCell id="R4D" value="«subsystem»&#xa;Capa Dominio / Reglas del Negocio y Entidades (app/core)" style="shape=folder;fontStyle=1;tabWidth=300;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="1250" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="R4D1" value="«component»&#xa;DomainCore (Rol &amp; User 1:1)&#xa;[app/core/entities]" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="470" width="550" height="170" as="geometry" />
+        </mxCell>
+
+        <!-- Clases UML dentro del DomainCore mostrando 1:1 -->
+        <mxCell id="C_ROL" value="«entity»&#xa;&lt;b&gt;Rol&lt;/b&gt;&#xa;+ id: ID&#xa;+ name: RoleName&#xa;+ user_id: ID&#xa;---&#xa;[Inv]: user_id is required" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="90" y="520" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="C_USER" value="«entity»&#xa;&lt;b&gt;User&lt;/b&gt;&#xa;+ id: ID&#xa;+ name: str&#xa;+ email: Email&#xa;+ password: Password&#xa;+ rol: Rol | None&#xa;---&#xa;[Inv]: rol.user_id == user.id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="380" y="520" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ASSOC_11" value="asociación 1:1&#xa;1..1                    0..1&#xa;&lt;--------------------&gt;&#xa;pertenece a / asignado a" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#6c8ebf;strokeWidth=2;fontSize=9;fontStyle=1;labelBackgroundColor=#ffffff;" edge="1" parent="1" source="C_ROL" target="C_USER">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- PUERTOS (INTERFACES) DEL DOMINIO -->
+        <mxCell id="R4P_REPO" value="«interface»&#xa;RolRepo (Port)&#xa;+ save(rol: Rol)&#xa;+ get_by_id(id: ID)&#xa;+ get_by_name(name)&#xa;+ get_by_user_id(user_id)&#xa;+ update(rol) · delete(id)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="660" y="475" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R4P_UOW" value="«interface»&#xa;RolUnitOfWork (Port)&#xa;+ rol_repo: RolRepo&#xa;+ user_repo: UserRepo&#xa;+ commit() / rollback()&#xa;[Garantiza consistencia 1:1]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="475" width="210" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R4P_UREPO" value="«interface»&#xa;UserRepo (Port)&#xa;+ get_by_id(id)&#xa;+ get_by_email(email)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="475" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- SUBSISTEMA PERSISTENCIA & INFRAESTRUCTURA -->
+        <mxCell id="R4I" value="«subsystem»&#xa;Capa Persistencia e Infraestructura (app/infra/db)" style="shape=folder;fontStyle=1;tabWidth=280;tabHeight=25;tabPosition=left;html=1;boundedLbl=1;whiteSpace=wrap;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;align=left;spacingLeft=10;spacingTop=4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="690" width="1250" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="R4I1" value="«component»&#xa;SQLModelRolRepo&#xa;[repositories/rol.py]&#xa;Implementa consultas&#xa;y mapeo DBRol &lt;=&gt; Rol" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="740" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="R4I2" value="«component»&#xa;SQLModelRolUoW&#xa;[unit_of_work/rol.py]&#xa;Maneja sesión única para&#xa;rol_repo + user_repo" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="740" width="240" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="R4I3" value="«component»&#xa;RelationalModelDBRol&#xa;[models/rol.py]&#xa;Tabla &quot;roles&quot;&#xa;user_id: UUID FK UNIQUE&#xa;sa.UniqueConstraint(&quot;user_id&quot;)" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#ffffff;strokeColor=#b85450;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="740" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="R4I4" value="«component»&#xa;PostgreSQL DBMS&#xa;Tablas users &amp; roles&#xa;Restricción FK ON DELETE CASCADE&#xa;Índice UNIQUE en user_id" style="shape=component;align=left;spacingLeft=36;whiteSpace=wrap;html=1;rounded=0;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="930" y="740" width="270" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- CONECTORES UML ESTÁNDAR -->
+        <!-- Router a Interfaz de Aplicación -->
+        <mxCell id="re1" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4P1" target="R4IF">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Inyector conecta UoW a Use Cases -->
+        <mxCell id="re2" value="«use» inyecta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#d79b00;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4P2" target="R4A1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Realización de la interfaz de casos de uso -->
+        <mxCell id="re3" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4A1" target="R4IF">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Casos de uso usan RolUnitOfWork (DIP) -->
+        <mxCell id="re4" value="«use» (DIP)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4A1" target="R4P_UOW">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Casos de uso usan entidades -->
+        <mxCell id="re5" value="«use» construye Rol" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4A1" target="R4D1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- GetRolUsecase usa RolRepo -->
+        <mxCell id="re6" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;strokeColor=#82b366;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4A2" target="R4P_REPO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- RolUnitOfWork agrega repositorios -->
+        <mxCell id="re7" value="contiene" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#9673a6;strokeWidth=1;fontSize=10;" edge="1" parent="1" source="R4P_UOW" target="R4P_REPO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re8" value="contiene" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#9673a6;strokeWidth=1;fontSize=10;" edge="1" parent="1" source="R4P_UOW" target="R4P_UREPO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Implementación de repositorios en Infraestructura (Realization) -->
+        <mxCell id="re9" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#b85450;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4I1" target="R4P_REPO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re10" value="«realize»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=block;endFill=0;strokeColor=#b85450;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4I2" target="R4P_UOW">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <!-- Repo usa modelo ORM y Driver -->
+        <mxCell id="re11" value="«use» mapea" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4I1" target="R4I3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="re12" value="SQL async" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=10;" edge="1" parent="1" source="R4I3" target="R4I4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- BANNER DE VERIFICACIÓN 1:1 Y CLEAN ARCHITECTURE -->
+        <mxCell id="R4_BANNER" value="VERIFICACIÓN DE ARQUITECTURA LIMPIA Y RELACIÓN 1:1&#xa;1. Regla de Dependencias: app/core tiene 0 imports de app/infra. Inversión de dependencias mediante RolRepo y RolUnitOfWork (Protocol).&#xa;2. Relación 1:1 Rol ↔ User garantizada en 3 capas: (a) Dominio: Rol exige user_id; User valida rol.user_id == user.id; (b) Aplicación: CreateRolUsecase verifica uow.rol_repo.get_by_user_id(user_id) previniendo asignaciones duplicadas; (c) Base de Datos: UNIQUE constraint en roles.user_id + FK CASCADE hacia users.id.&#xa;3. Estándar UML 2.5: Componentes con forma «component», subsistemas como paquetes, puertos e interfaces con conectores de realización (--|&gt;) y uso (--&gt;)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="900" width="1250" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="5 · Flujo petición Rol (Inciso 3)" id="rol-flujo-5">
+    <mxGraphModel dx="1420" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="1240" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t5R" value="Inciso 3 · Flujo de la petición — POST /api/v1/roles (crear rol asignado a user 1:1)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="60" y="20" width="1140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="F1R" value="① CLIENTE HTTP&lt;br&gt;POST /api/v1/roles · JSON {name, user_id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="60" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F2R" value="② APP FASTAPI&lt;br&gt;include_router(/api/v1) → /roles · tags=[Roles]&lt;br&gt;app/infra/api/routers/v1/__init__.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="170" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F3R" value="③ ROUTER create()&lt;br&gt;DTO CreateRolRequest · inyecta usecase&lt;br&gt;app/infra/api/routers/v1/rol.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="280" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F4R" value="④ INYECCIÓN DE DEPENDENCIAS&lt;br&gt;get_create_rol_usecase(uow)&lt;br&gt;app/infra/api/dependencies/usecases/rol.py:14" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="390" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F5R" value="⑤ CASO DE USO · CreateRolUsecase.execute(dto)&lt;br&gt;app/core/usecases/rol/create_rol.py:21" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="500" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="SubR" value="Pasos internos del caso de uso ⑤ (solo dominio + puertos)" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=#f5f5f5;strokeColor=#999999;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontSize=12;fontStyle=2" vertex="1" parent="1">
+          <mxGeometry x="60" y="610" width="1140" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="S1R" value="5a · Validar Value Objects&lt;br&gt;RoleName(name) · ID.from_string(user_id)&lt;br&gt;value_objects/role_name.py · id.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="90" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S2R" value="5b · Validar existencia del user&lt;br&gt;uow.user_repo.get_by_id(user_id)&lt;br&gt;UserNotFoundError → 404" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="370" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S3R" value="5c · Reglas de unicidad 1:1&lt;br&gt;get_by_name(name) → 409 si existe&lt;br&gt;get_by_user_id(user_id) → 409 si ya tiene rol" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S4R" value="5d · Construir entidad Rol&lt;br&gt;Rol(id=ID.generate(), name, user_id)&lt;br&gt;entities/rol.py (frozen)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="930" y="650" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F6R" value="⑥ ROL UNIT OF WORK&lt;br&gt;async with uow → commit / rollback&lt;br&gt;rol_repo + user_repo · misma sesión" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="770" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F7R" value="⑦ REPOSITORIO · RolRepo.save(rol)&lt;br&gt;Entidad → DBRol (SQLModel) · session.add()&lt;br&gt;infra/db/repositories/rol.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="880" width="400" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F8R" value="⑧ POSTGRESQL&lt;br&gt;INSERT roles (al commit)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=12;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="380" y="990" width="400" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R1R" value="COMMIT ✓&lt;br&gt;RolResponse DTO&lt;br&gt;{id, name, user_id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="880" y="990" width="300" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="R2R" value="RESPUESTA HTTP 201 Created&lt;br&gt;JSON {id, name, user_id}" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="880" y="60" width="300" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="X1R" value="EXCEPCIONES DE DOMINIO&lt;br&gt;InvalidRolError · RolAlreadyExistsError&lt;br&gt;RolNotFoundError · UserNotFoundError" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="500" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="X2R" value="MANEJO EN ROUTER&lt;br&gt;HTTPException → 400 · 404 · 409 · 422&lt;br&gt;routers/v1/rol.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="280" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="e1R" value="HTTP request" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#333333;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F1R" target="F2R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2R" value="ruta /api/v1/roles" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F2R" target="F3R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3R" value="Depends(...)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F3R" target="F4R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4R" value="usecase instanciado" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#d79b00;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F4R" target="F5R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5aR" value="ejecuta" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F5R" target="SubR">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5bR" value="entidad Rol" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="SubR" target="F6R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6R" value="uow.rol_repo (puerto)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#9673a6;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F6R" target="F7R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7R" value="INSERT (commit)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff" edge="1" parent="1" source="F7R" target="F8R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eR1R" value="commit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="F8R" target="R1R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eR2R" value="retorno: el DTO sube por capas&lt;br&gt;repo → uow → usecase → router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0" edge="1" parent="1" source="R1R" target="R2R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eR3R" value="JSON 201 al cliente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#82b366;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="R2R" target="F1R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eX1R" value="raise" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="F5R" target="X1R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eX2R" value="propaga" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0" edge="1" parent="1" source="X1R" target="X2R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eX3R" value="error HTTP 400 / 404 / 409 / 422" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#b85450;strokeWidth=2;fontSize=11;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0" edge="1" parent="1" source="X2R" target="F1R">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LGR" value="Leyenda — Azul: Dominio (core) · Verde: Aplicación (use case y respuesta DTO) · Morado: Puertos / Unit of Work · Naranja: Adaptadores (API, DI, repositorio) · Rojo: Frameworks/Drivers y manejo de errores — Flujo POST /api/v1/roles idéntico al de user + pasos 5b/5c de reglas 1:1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#999999;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="1120" width="1140" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
