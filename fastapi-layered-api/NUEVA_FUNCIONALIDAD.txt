@@ -1,0 +1,203 @@
+================================================================================
+            NUEVA FUNCIONALIDAD: GESTIÓN DE TAREAS (TASKS)
+================================================================================
+Proyecto: Users API (FastAPI con Arquitectura en Capas)
+Entidad agregada: Task (Tareas asociadas a Usuarios)
+Fecha: Septiembre 2026
+
+--------------------------------------------------------------------------------
+1. ¿QUÉ HACE ESTA NUEVA FUNCIONALIDAD?
+--------------------------------------------------------------------------------
+Permite a los usuarios autenticados gestionar sus propias tareas o actividades
+pendientes a través de un CRUD completo protegido con JWT.
+
+Casos de uso principales:
+1. Crear una tarea asignando título, descripción opcional, estado y prioridad.
+2. Listar las tareas propias de forma paginada y con capacidad de filtro por estado.
+3. Obtener el detalle de una tarea específica mediante su identificador.
+4. Modificar parcialmente una tarea (título, descripción, estado, prioridad).
+5. Eliminar una tarea propia de manera idempotente.
+6. Proteger la privacidad de los datos: ningún usuario regular puede ver,
+   editar o eliminar tareas que pertenezcan a otro usuario.
+
+--------------------------------------------------------------------------------
+2. ¿CÓMO FUNCIONA? (ARQUITECTURA EN CAPAS)
+--------------------------------------------------------------------------------
+La funcionalidad respeta la regla de dependencia unidireccional del proyecto:
+API (Routers) -> Services (Servicios) -> Repositories (Repositorios) -> Models (Modelos)
+
+1. CAPA DE MODELOS ORM (app/models/task.py):
+   - Define la tabla "tasks" usando SQLAlchemy 2.0 (Mapped y mapped_column).
+   - Atributos:
+     * id: Entero, clave primaria indexada.
+     * title: String(200), obligatorio.
+     * description: String(1000), opcional.
+     * status: String(50), valores ('pending', 'in_progress', 'completed').
+     * priority: String(50), valores ('low', 'medium', 'high').
+     * owner_id: Clave foránea que referencia a 'users.id' con borrado en cascada.
+     * created_at y updated_at: Marcas de tiempo UTC automáticas.
+   - Relación bidireccional con 'User' (un usuario tiene muchas tareas).
+
+2. CAPA DE ESQUEMAS / DTOs (app/schemas/task.py):
+   - Contratos tipados con Pydantic v2 para aislar el modelo ORM de la red:
+     * TaskStatus / TaskPriority: Enums de validación estricta.
+     * TaskBase: Atributos comunes.
+     * TaskCreate: Contrato de entrada al crear una tarea.
+     * TaskUpdate: Todos los campos opcionales para permitir actualización parcial (PATCH).
+     * TaskPublic: Contrato de salida seguro hacia el cliente (incluye id, owner_id y fechas).
+     * TaskListResponse: Envoltorio con metadatos de paginación (items, total, page, page_size).
+
+3. CAPA DE PERSISTENCIA / REPOSITORIO (app/repositories/task_repository.py):
+   - Encapsula exclusivamente las consultas SQL asíncronas con SQLAlchemy.
+   - Realiza 'flush()' dentro de la transacción activa (sin commit prematuro).
+   - Permite listar con offset/limit y filtrar por usuario y estado.
+
+4. CAPA DE LÓGICA DE NEGOCIO / SERVICIO (app/services/task_service.py):
+   - Implementa las reglas de negocio y políticas de autorización a nivel de objeto (BOLA).
+   - Valida que el 'current_user' sea el dueño de la tarea o un superusuario.
+   - Lanza excepciones de dominio desacopladas de HTTP:
+     * TaskNotFoundError: Si la tarea no existe en la base de datos.
+     * TaskForbiddenError: Si un usuario intenta acceder a la tarea de otro.
+
+5. CAPA TRANSVERSAL DE DEPENDENCIAS (app/api/deps.py):
+   - Provee funciones inyectables mediante FastAPI Depends():
+     * get_task_repository(db): Entrega la instancia del repositorio.
+     * get_task_service(repo): Entrega el servicio con el repositorio inyectado.
+     * get_current_active_user: Extrae el JWT, valida expiración/firma y obtiene el usuario activo.
+
+6. CAPA DE PRESENTACIÓN / API ROUTERS (app/api/v1/routers/tasks.py):
+   - Expone los endpoints HTTP montados bajo el prefijo "/api/v1/tasks".
+   - Traduce excepciones de dominio a códigos de respuesta HTTP adecuados.
+   - Aplica validación automática de parámetros de consulta (query params) y cuerpos JSON.
+
+--------------------------------------------------------------------------------
+3. BUENAS PRÁCTICAS RESTful Y SEGURIDAD APLICADAS
+--------------------------------------------------------------------------------
+- Verbos HTTP semánticos:
+  * POST: Creación de recursos (/tasks).
+  * GET: Consulta de colecciones o recursos individuales (/tasks, /tasks/{id}).
+  * PATCH: Modificación parcial de recursos (/tasks/{id}).
+  * DELETE: Borrado idempotente (/tasks/{id}).
+
+- Códigos de estado HTTP canónicos:
+  * 201 Created: Cuando se crea exitosamente una tarea.
+  * 200 OK: Respuestas de lectura y actualización exitosas.
+  * 204 No Content: Cuando se elimina una tarea (sin contenido en el cuerpo).
+  * 401 Unauthorized: Cuando falta el token Bearer JWT o es inválido/expirado.
+  * 403 Forbidden: Si el usuario intenta acceder a una tarea que no le pertenece.
+  * 404 Not Found: Si la tarea solicitada no existe.
+  * 422 Unprocessable Entity: Si los datos enviados violan las validaciones de Pydantic.
+
+- Mitigación de OWASP API Security Top 10 (2023):
+  * API1:2023 (Broken Object Level Authorization - BOLA):
+    Cada solicitud a nivel de tarea valida en la capa de servicio que el
+    'owner_id' coincida con el usuario del token autenticado.
+  * API3:2023 (Broken Object Property Level Authorization):
+    Uso estricto de 'response_model=TaskPublic' para garantizar que solo se
+    retornen las propiedades autorizadas.
+  * API4:2023 (Unrestricted Resource Consumption):
+    Paginación mandatoria con validación de 'page >= 1' y 'page_size <= 100'.
+
+--------------------------------------------------------------------------------
+4. CATÁLOGO DE ENDPOINTS
+--------------------------------------------------------------------------------
+Todos los endpoints requieren autenticación mediante cabecera:
+Authorization: Bearer <TU_ACCESS_TOKEN>
+
+1. POST /api/v1/tasks
+   - Descripción: Crea una nueva tarea asignada al usuario autenticado.
+   - Código éxito: 201 Created
+   - Request Body de ejemplo:
+     {
+       "title": "Configurar pipeline CI/CD",
+       "description": "Automatizar despliegue y pruebas",
+       "status": "pending",
+       "priority": "high"
+     }
+   - Response de ejemplo (TaskPublic):
+     {
+       "id": 1,
+       "title": "Configurar pipeline CI/CD",
+       "description": "Automatizar despliegue y pruebas",
+       "status": "pending",
+       "priority": "high",
+       "owner_id": 4,
+       "created_at": "2026-09-21T15:48:15Z",
+       "updated_at": "2026-09-21T15:48:15Z"
+     }
+
+2. GET /api/v1/tasks
+   - Descripción: Lista las tareas del usuario autenticado con paginación y filtro.
+   - Parámetros opcionales:
+     * status: pending | in_progress | completed
+     * page: entero >= 1 (por defecto: 1)
+     * page_size: entero entre 1 y 100 (por defecto: 20)
+   - Código éxito: 200 OK
+   - Response de ejemplo (TaskListResponse):
+     {
+       "items": [
+         {
+           "id": 1,
+           "title": "Configurar pipeline CI/CD",
+           "description": "Automatizar despliegue y pruebas",
+           "status": "pending",
+           "priority": "high",
+           "owner_id": 4,
+           "created_at": "2026-09-21T15:48:15Z",
+           "updated_at": "2026-09-21T15:48:15Z"
+         }
+       ],
+       "total": 1,
+       "page": 1,
+       "page_size": 20
+     }
+
+3. GET /api/v1/tasks/{task_id}
+   - Descripción: Obtiene el detalle de una tarea por su ID.
+   - Código éxito: 200 OK
+   - Códigos de error: 401 (No autenticado), 403 (No es el dueño), 404 (No existe).
+
+4. PATCH /api/v1/tasks/{task_id}
+   - Descripción: Actualiza parcialmente los campos de una tarea.
+   - Request Body de ejemplo (solo los campos a modificar):
+     {
+       "status": "completed"
+     }
+   - Código éxito: 200 OK
+
+5. DELETE /api/v1/tasks/{task_id}
+   - Descripción: Elimina una tarea propia de forma definitiva.
+   - Código éxito: 204 No Content (cuerpo vacío).
+
+--------------------------------------------------------------------------------
+5. CÓMO PROBAR Y VALIDAR LA NUEVA FUNCIONALIDAD
+--------------------------------------------------------------------------------
+
+A) Pruebas automatizadas (pytest):
+   En la terminal del proyecto ejecuta:
+   .venv\Scripts\pytest -v
+
+   Resultado esperado: 16 tests pasando exitosamente (incluyendo tests/test_tasks.py).
+
+B) Exploración interactiva con Swagger UI:
+   1. Levanta el servidor local:
+      .venv\Scripts\uvicorn app.main:app --reload
+   2. Abre en tu navegador:
+      http://127.0.0.1:8000/docs
+   3. Usa el botón "Authorize" con las credenciales de un usuario registrado en
+      /api/v1/auth/login.
+   4. Interactúa con las operaciones del grupo 'tasks'.
+
+C) Ejemplo rápido con cURL:
+   # 1. Login para obtener token
+   curl -X POST http://127.0.0.1:8000/api/v1/auth/login \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     -d "username=usuario@example.com&password=Password123!"
+
+   # 2. Crear tarea con el token obtenido
+   curl -X POST http://127.0.0.1:8000/api/v1/tasks \
+     -H "Authorization: Bearer <TU_TOKEN>" \
+     -H "Content-Type: application/json" \
+     -d '{"title": "Mi primera tarea", "priority": "high"}'
+
+================================================================================

@@ -29,3 +29,12 @@ class InvalidCredentialsError(DomainError):
 
 class InactiveUserError(DomainError):
     """El usuario existe pero está deshabilitado."""
+
+
+class TaskNotFoundError(DomainError):
+    """La tarea solicitada no existe."""
+
+
+class TaskForbiddenError(DomainError):
+    """El usuario no tiene permisos para acceder o modificar la tarea."""
+
