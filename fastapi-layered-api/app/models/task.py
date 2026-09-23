@@ -15,6 +15,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 if TYPE_CHECKING:
+    from app.models.category import Category
     from app.models.user import User
 
 
@@ -29,6 +30,9 @@ class Task(Base):
     owner_id: Mapped[int] = mapped_column(
         Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True
     )
+    category_id: Mapped[Optional[int]] = mapped_column(
+        Integer, ForeignKey("categories.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
@@ -40,6 +44,7 @@ class Task(Base):
     )
 
     owner: Mapped["User"] = relationship("User", back_populates="tasks")
+    category: Mapped[Optional["Category"]] = relationship("Category", back_populates="tasks")
 
     def __repr__(self) -> str:  # pragma: no cover
         return f"<Task id={self.id} title={self.title!r} owner_id={self.owner_id}>"

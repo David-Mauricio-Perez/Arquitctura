@@ -32,6 +32,7 @@ class TaskService:
             description=data.description,
             status=status_val,
             priority=priority_val,
+            category_id=data.category_id,
         )
 
     async def get_by_id(self, task_id: int, current_user: User) -> Task:

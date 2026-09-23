@@ -56,6 +56,7 @@ class TaskRepository:
         description: Optional[str],
         status: str,
         priority: str,
+        category_id: Optional[int] = None,
     ) -> Task:
         task = Task(
             owner_id=owner_id,
@@ -63,6 +64,7 @@ class TaskRepository:
             description=description,
             status=status,
             priority=priority,
+            category_id=category_id,
         )
         self._session.add(task)
         await self._session.flush()
@@ -78,6 +80,8 @@ class TaskRepository:
             task.status = data.status.value if hasattr(data.status, "value") else data.status
         if data.priority is not None:
             task.priority = data.priority.value if hasattr(data.priority, "value") else data.priority
+        if data.category_id is not None:
+            task.category_id = data.category_id
 
         await self._session.flush()
         await self._session.refresh(task)

@@ -38,3 +38,12 @@ class TaskNotFoundError(DomainError):
 class TaskForbiddenError(DomainError):
     """El usuario no tiene permisos para acceder o modificar la tarea."""
 
+
+class CategoryNotFoundError(DomainError):
+    """La categoría solicitada no existe."""
+
+
+class CategoryAlreadyExistsError(DomainError):
+    """Ya existe una categoría con ese nombre."""
+
+

@@ -33,6 +33,7 @@ class TaskBase(BaseModel):
     description: Optional[str] = Field(None, max_length=1000, description="Detalle opcional de la tarea.")
     status: TaskStatus = Field(default=TaskStatus.PENDING, description="Estado actual de la tarea.")
     priority: TaskPriority = Field(default=TaskPriority.MEDIUM, description="Nivel de prioridad.")
+    category_id: Optional[int] = Field(None, description="ID opcional de la categoría asociada.")
 
 
 class TaskCreate(TaskBase):
@@ -46,6 +47,7 @@ class TaskUpdate(BaseModel):
     description: Optional[str] = Field(None, max_length=1000, description="Nueva descripción de la tarea.")
     status: Optional[TaskStatus] = Field(None, description="Nuevo estado de la tarea.")
     priority: Optional[TaskPriority] = Field(None, description="Nueva prioridad de la tarea.")
+    category_id: Optional[int] = Field(None, description="Nuevo ID de la categoría asociada.")
 
 
 class TaskPublic(TaskBase):
