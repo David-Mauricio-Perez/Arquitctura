@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframes Lo-Fi — FastAPI REST Architecture</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background: #eef2f6;
+            color: #1e293b;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* Barra de control superior */
+        .topbar {
+            background: #1e293b;
+            color: #fff;
+            border-radius: 8px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+        }
+        .topbar h1 {
+            font-size: 1.15rem;
+            letter-spacing: .5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .topbar select {
+            background: #fff;
+            color: #1e293b;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: .95rem;
+            font-weight: 500;
+            min-width: 320px;
+            cursor: pointer;
+        }
+        .topbar .device-toggles {
+            display: flex;
+            background: #334155;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-left: auto;
+        }
+        .topbar .btn-toggle {
+            background: transparent;
+            color: #94a3b8;
+            border: none;
+            padding: 8px 14px;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: all .2s;
+        }
+        .topbar .btn-toggle.active {
+            background: #3b82f6;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Contenedor principal */
+        .screen { display: none; }
+        .screen.active { display: block; }
+
+        .canvas {
+            background: #fff;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 1180px;
+            margin: 0 auto;
+            box-shadow: 0 8px 24px rgba(0,0,0,.06);
+            transition: max-width .3s ease;
+        }
+        .canvas.mobile-view {
+            max-width: 420px;
+            padding: 16px;
+        }
+
+        /* Título de pantalla y tags */
+        .screen-header {
+            background: #f1f5f9;
+            border: 2px dashed #94a3b8;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .screen-header h2 {
+            font-size: 1.1rem;
+            color: #0f172a;
+        }
+        .screen-header .meta-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            font-size: .75rem;
+            font-family: monospace;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid #94a3b8;
+            background: #e2e8f0;
+            color: #334155;
+            font-weight: 600;
+        }
+        .badge.rest-get { background: #dbeafe; border-color: #60a5fa; color: #1e40af; }
+        .badge.rest-post { background: #dcfce7; border-color: #4ade80; color: #166534; }
+        .badge.rest-patch { background: #fef3c7; border-color: #fcd34d; color: #92400e; }
+        .badge.rest-delete { background: #fee2e2; border-color: #f87171; color: #991b1b; }
+        .badge.public { background: #ede9fe; border-color: #c084fc; color: #6b21a8; }
+
+        /* Estructuras Lo-Fi Wireframe */
+        .wf-box {
+            border: 2px dashed #94a3b8;
+            background: #f8fafc;
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .wf-annot {
+            display: inline-block;
+            background: #64748b;
+            color: #fff;
+            font-size: .65rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+        .wf-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #94a3b8;
+            background: #e2e8f0;
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 18px;
+        }
+        .wf-nav .logo {
+            font-weight: 700;
+            font-size: .95rem;
+            border: 2px solid #64748b;
+            padding: 4px 10px;
+            background: #fff;
+        }
+        .wf-nav .links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .wf-nav .link-item {
+            font-size: .8rem;
+            border-bottom: 2px solid #64748b;
+            padding: 2px 4px;
+            color: #334155;
+        }
+
+        /* Formularios Wireframe */
+        .wf-form-group {
+            margin-bottom: 12px;
+        }
+        .wf-label {
+            display: block;
+            font-size: .8rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #334155;
+        }
+        .wf-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #94a3b8;
+            border-radius: 4px;
+            background: #fff;
+            color: #64748b;
+            font-size: .85rem;
+            outline: none;
+        }
+        .wf-btn {
+            display: inline-block;
+            text-align: center;
+            border: 2px solid #475569;
+            background: #64748b;
+            color: #fff;
+            padding: 10px 18px;
+            font-size: .85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .wf-btn-outline {
+            background: transparent;
+            color: #475569;
+        }
+
+        /* Grillas y Tablas Wireframe */
+        .wf-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .wf-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 16px;
+        }
+        @media (max-width: 768px) {
+            .wf-grid-3, .wf-grid-2 { grid-template-columns: 1fr !important; }
+        }
+        .wf-card {
+            border: 2px solid #94a3b8;
+            background: #fff;
+            border-radius: 6px;
+            padding: 14px;
+        }
+        .wf-placeholder-line {
+            height: 10px;
+            background: #cbd5e1;
+            border-radius: 3px;
+            margin-bottom: 8px;
+        }
+        .wf-placeholder-line.short { width: 50%; }
+        .wf-placeholder-line.mid { width: 75%; }
+
+        /* Notas de UX */
+        .ux-notes {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 12px 16px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 18px;
+            font-size: .8rem;
+            color: #92400e;
+        }
+        .ux-notes b { color: #78350f; }
+
+        /* Filtros y Paginación */
+        .wf-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .wf-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 2px dashed #cbd5e1;
+            font-size: .8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR DE NAVEGACIÓN ENTRE WIREFRAMES -->
+    <div class="topbar">
+        <h1>📐 Wireframes Lo-Fi — Arquitectura REST API</h1>
+        <select id="screen-selector">
+            <option value="screen-auth">1. Autenticación: Login & Registro (/auth)</option>
+            <option value="screen-dashboard">2. Dashboard Principal de Tareas (/tasks - Protegido)</option>
+            <option value="screen-categories">3. Catálogo Público de Categorías (/categories - Público)</option>
+            <option value="screen-task-edit">4. Modal de Edición Parcial & BOLA (/tasks/{id} - PATCH)</option>
+            <option value="screen-profile">5. Perfil de Usuario & Tokens JWT (/users/me)</option>
+            <option value="screen-docs">6. Explorador de Endpoints OpenAPI (/docs)</option>
+        </select>
+        <div class="device-toggles">
+            <button class="btn-toggle active" id="btn-desktop" onclick="setDevice('desktop')">🖥️ Desktop</button>
+            <button class="btn-toggle" id="btn-mobile" onclick="setDevice('mobile')">📱 Mobile</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA 1: AUTENTICACIÓN -->
+    <div id="screen-auth" class="screen active">
+        <div class="canvas" id="canvas-auth">
+            <div class="screen-header">
+                <h2>1. Vista de Autenticación (Login & Registro)</h2>
+                <div class="meta-tags">
+                    <span class="badge rest-post">POST /api/v1/auth/login</span>
+                    <span class="badge rest-post">POST /api/v1/auth/register</span>
+                    <span class="badge">OAuth2 Password Flow</span>
+                </div>
+            </div>
+
+            <div class="wf-grid-2">
+                <!-- Login Box -->
+                <div class="wf-box">
+                    <span class="wf-annot">Componente: Login Form</span>
+                    <h3 style="margin-bottom: 12px; font-size: 1rem;">Iniciar Sesión</h3>
+                    <div class="wf-form-group">
+                        <label class="wf-label">Email o Username</label>
+                        <input type="text" class="wf-input" placeholder="usuario@ejemplo.com" disabled>
+                    </div>
+                    <div class="wf-form-group">
+                        <label class="wf-label">Contraseña</label>
+                        <input type="password" class="wf-input" placeholder="••••••••••••" disabled>
+                    </div>
+                    <button class="wf-btn">Ingresar (Obtener Token JWT)</button>
+                    <div style="font-size: .75rem; text-align: center; margin-top: 10px; color: #64748b;">
+                        Formato RFC 6749 <code>application/x-www-form-urlencoded</code>
+                    </div>
+                </div>
+
+                <!-- Registro Box -->
+                <div class="wf-box">
+                    <span class="wf-annot">Componente: Registro de Usuario (Pydantic UserCreate)</span>
+                    <h3 style="margin-bottom: 12px; font-size: 1rem;">Crear Cuenta Nueva</h3>
+                    <div class="wf-form-group">
+                        <label class="wf-label">Nombre Completo</label>
+                        <input type="text" class="wf-input" placeholder="Ada Lovelace" disabled>
+                    </div>
+                    <div class="wf-form-group">
+                        <label class="wf-label">Correo Electrónico (Único)</label>
+                        <input type="email" class="wf-input" placeholder="ada@ejemplo.com" disabled>
+                    </div>
+                    <div class="wf-form-group">
+                        <label class="wf-label">Contraseña (Mín. 8 caracteres, Argon2)</label>
+                        <input type="password" class="wf-input" placeholder="Contraseña segura..." disabled>
+                    </div>
+                    <button class="wf-btn" style="background: #334155;">Registrarse (201 Created)</button>
+                </div>
+            </div>
+
+            <div class="ux-notes">
+                <b>💡 Buenas Prácticas UX/UI Aplicadas:</b> Prevención de errores con validación inmediata en el cliente antes del envío. Mensaje de error genérico en login (OWASP API2) para mitigar enumeración de usuarios.
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 2: DASHBOARD DE TAREAS -->
+    <div id="screen-dashboard" class="screen">
+        <div class="canvas" id="canvas-dashboard">
+            <div class="screen-header">
+                <h2>2. Dashboard de Tareas (Recurso Protegido)</h2>
+                <div class="meta-tags">
+                    <span class="badge rest-get">GET /api/v1/tasks</span>
+                    <span class="badge rest-post">POST /api/v1/tasks</span>
+                    <span class="badge">Auth: Bearer JWT</span>
+                </div>
+            </div>
+
+            <!-- Navbar -->
+            <div class="wf-nav">
+                <div class="logo">⚡ REST Tasks App</div>
+                <div class="links">
+                    <span class="link-item">Tareas</span>
+                    <span class="link-item">Categorías</span>
+                    <span class="badge" style="background:#e2e8f0;">👤 Carlos Perez</span>
+                    <button class="badge" style="cursor:pointer; background:#fee2e2; border-color:#fca5a5;">Salir</button>
+                </div>
+            </div>
+
+            <!-- Toolbar de Filtros -->
+            <div class="wf-toolbar">
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <span class="wf-label" style="margin:0;">Filtrar por:</span>
+                    <select class="wf-input" style="width: auto; padding: 4px 8px;">
+                        <option>Estado: Todos</option>
+                        <option>pending</option>
+                        <option>in_progress</option>
+                        <option>completed</option>
+                    </select>
+                    <select class="wf-input" style="width: auto; padding: 4px 8px;">
+                        <option>Categoría: Todas</option>
+                        <option>Trabajo (#2563EB)</option>
+                        <option>Estudio (#8B5CF6)</option>
+                    </select>
+                </div>
+                <button class="wf-btn" style="width:auto; padding: 6px 14px;">+ Nueva Tarea</button>
+            </div>
+
+            <!-- Lista de Tareas en Grid -->
+            <div class="wf-grid-3">
+                <div class="wf-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span class="badge" style="background:#fef3c7;">PENDING</span>
+                        <span class="badge" style="background:#dbeafe;">#Trabajo</span>
+                    </div>
+                    <div class="wf-placeholder-line" style="font-weight:700;">Revisar arquitectura en capas</div>
+                    <div class="wf-placeholder-line mid"></div>
+                    <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:.7rem; color:#64748b;">
+                        <span>Prioridad: ALTA</span>
+                        <div>
+                            <span style="cursor:pointer; text-decoration:underline;">Editar</span> | 
+                            <span style="cursor:pointer; color:#b91c1c; text-decoration:underline;">Borrar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wf-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span class="badge" style="background:#e0e7ff;">IN_PROGRESS</span>
+                        <span class="badge" style="background:#ede9fe;">#Estudio</span>
+                    </div>
+                    <div class="wf-placeholder-line" style="font-weight:700;">Completar suite de tests pytest</div>
+                    <div class="wf-placeholder-line mid"></div>
+                    <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:.7rem; color:#64748b;">
+                        <span>Prioridad: MEDIA</span>
+                        <div>
+                            <span style="cursor:pointer; text-decoration:underline;">Editar</span> | 
+                            <span style="cursor:pointer; color:#b91c1c; text-decoration:underline;">Borrar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wf-card">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span class="badge" style="background:#dcfce7;">COMPLETED</span>
+                        <span class="badge" style="background:#f1f5f9;">Sin Categoría</span>
+                    </div>
+                    <div class="wf-placeholder-line" style="font-weight:700;">Documentar Top 10 API REST</div>
+                    <div class="wf-placeholder-line mid"></div>
+                    <div style="display:flex; justify-content:space-between; margin-top:12px; font-size:.7rem; color:#64748b;">
+                        <span>Prioridad: BAJA</span>
+                        <div>
+                            <span style="cursor:pointer; text-decoration:underline;">Editar</span> | 
+                            <span style="cursor:pointer; color:#b91c1c; text-decoration:underline;">Borrar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paginación -->
+            <div class="wf-pagination">
+                <span>Mostrando 1 - 3 de 3 tareas (Página 1 de 1)</span>
+                <div style="display:flex; gap:6px;">
+                    <button class="badge" disabled>Anterior</button>
+                    <button class="badge" style="background:#3b82f6; color:#fff;">1</button>
+                    <button class="badge" disabled>Siguiente</button>
+                </div>
+            </div>
+
+            <div class="ux-notes">
+                <b>💡 Buenas Prácticas UX/UI:</b> Paginación explícita con límite de consumo de recursos (`page_size <= 100`). Control de estado vacío y badges visuales para reconocer estados sin esfuerzo cognitivo.
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 3: CATEGORÍAS PÚBLICAS -->
+    <div id="screen-categories" class="screen">
+        <div class="canvas" id="canvas-categories">
+            <div class="screen-header">
+                <h2>3. Catálogo Público de Categorías (Sin Autenticar)</h2>
+                <div class="meta-tags">
+                    <span class="badge public">ACCESO PÚBLICO</span>
+                    <span class="badge rest-get">GET /api/v1/categories</span>
+                    <span class="badge rest-get">GET /api/v1/categories/{id}</span>
+                </div>
+            </div>
+
+            <!-- Banner público -->
+            <div class="wf-box" style="background:#eff6ff; border-color:#93c5fd; text-align:center; padding:20px;">
+                <h3 style="color:#1e40af; margin-bottom:6px;">Catálogo Abierto de Categorías Temáticas</h3>
+                <p style="font-size:.85rem; color:#1e3a8a; margin-bottom:12px;">Cualquier usuario o cliente externo puede consultar este listado sin necesidad de registrarse ni enviar token.</p>
+                <div style="display:flex; gap:8px; justify-content:center;">
+                    <button class="wf-btn" style="width:auto; padding:6px 14px; background:#2563eb;">Iniciar Sesión</button>
+                    <button class="wf-btn wf-btn-outline" style="width:auto; padding:6px 14px;">Crear Cuenta</button>
+                </div>
+            </div>
+
+            <!-- Grid de categorías públicas -->
+            <div class="wf-grid-3">
+                <div class="wf-card" style="border-left: 6px solid #2563eb;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <h4 style="font-size:1rem;">Trabajo</h4>
+                        <span class="badge" style="background:#dbeafe;">#2563EB</span>
+                    </div>
+                    <p style="font-size:.8rem; color:#64748b; margin-bottom:10px;">Proyectos profesionales, sprints y reuniones corporativas.</p>
+                    <div class="wf-placeholder-line short"></div>
+                    <span class="badge" style="font-size:.65rem; background:#f1f5f9;">ID: 1 • Activa</span>
+                </div>
+
+                <div class="wf-card" style="border-left: 6px solid #8b5cf6;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <h4 style="font-size:1rem;">Estudio</h4>
+                        <span class="badge" style="background:#ede9fe;">#8B5CF6</span>
+                    </div>
+                    <p style="font-size:.8rem; color:#64748b; margin-bottom:10px;">Certificaciones, lecturas técnicas y laboratorios de código.</p>
+                    <div class="wf-placeholder-line short"></div>
+                    <span class="badge" style="font-size:.65rem; background:#f1f5f9;">ID: 2 • Activa</span>
+                </div>
+
+                <div class="wf-card" style="border-left: 6px solid #10b981;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <h4 style="font-size:1rem;">Personal</h4>
+                        <span class="badge" style="background:#dcfce7;">#10B981</span>
+                    </div>
+                    <p style="font-size:.8rem; color:#64748b; margin-bottom:10px;">Salud, finanzas personales y actividades cotidianas.</p>
+                    <div class="wf-placeholder-line short"></div>
+                    <span class="badge" style="font-size:.65rem; background:#f1f5f9;">ID: 3 • Activa</span>
+                </div>
+            </div>
+
+            <div class="ux-notes">
+                <b>💡 Buenas Prácticas UX/UI:</b> Principio de descubrimiento abierto. Los usuarios no autenticados pueden explorar la taxonomía del sistema antes de registrarse. Si desean crear o alterar categorías, se solicita autenticación con claridad.
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 4: MODAL DE EDICIÓN & BOLA -->
+    <div id="screen-task-edit" class="screen">
+        <div class="canvas" id="canvas-task-edit">
+            <div class="screen-header">
+                <h2>4. Modal de Edición Parcial & Verificación BOLA</h2>
+                <div class="meta-tags">
+                    <span class="badge rest-patch">PATCH /api/v1/tasks/{task_id}</span>
+                    <span class="badge rest-delete">DELETE /api/v1/tasks/{task_id}</span>
+                    <span class="badge">OWASP API1:2023 BOLA</span>
+                </div>
+            </div>
+
+            <!-- Simulación de Modal -->
+            <div style="background: rgba(15,23,42,.6); padding: 24px; border-radius: 8px;">
+                <div class="wf-card" style="max-width: 550px; margin: 0 auto; box-shadow: 0 10px 25px rgba(0,0,0,.2);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #cbd5e1; padding-bottom:8px;">
+                        <h3 style="font-size:1rem;">✏️ Editar Tarea (PATCH Parcial)</h3>
+                        <span style="cursor:pointer; font-weight:700;">✕</span>
+                    </div>
+
+                    <!-- Alerta de seguridad BOLA -->
+                    <div style="background:#f0fdf4; border:1px solid #86efac; color:#166534; padding:8px 12px; font-size:.75rem; border-radius:4px; margin-bottom:14px;">
+                        🛡️ <b>Verificación de Propietario (BOLA):</b> Tu usuario es el propietario registrado de esta tarea (`owner_id = 1`). Tienes permisos de edición.
+                    </div>
+
+                    <div class="wf-form-group">
+                        <label class="wf-label">Título</label>
+                        <input type="text" class="wf-input" value="Revisar arquitectura en capas">
+                    </div>
+                    <div class="wf-form-group">
+                        <label class="wf-label">Descripción</label>
+                        <textarea class="wf-input" style="height:60px;">Asegurar separación entre Routers, Services y Repositories.</textarea>
+                    </div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <div class="wf-form-group">
+                            <label class="wf-label">Estado</label>
+                            <select class="wf-input">
+                                <option>in_progress</option>
+                                <option>pending</option>
+                                <option>completed</option>
+                            </select>
+                        </div>
+                        <div class="wf-form-group">
+                            <label class="wf-label">Categoría</label>
+                            <select class="wf-input">
+                                <option>Trabajo (#2563EB)</option>
+                                <option>Estudio</option>
+                                <option>Ninguna</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; margin-top:16px;">
+                        <button class="wf-btn" style="background:#ef4444; border-color:#dc2626; width:auto; padding:8px 14px;">Eliminar (204)</button>
+                        <div style="display:flex; gap:8px;">
+                            <button class="wf-btn wf-btn-outline" style="width:auto; padding:8px 14px;">Cancelar</button>
+                            <button class="wf-btn" style="background:#2563eb; width:auto; padding:8px 14px;">Guardar Cambios (200)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-notes">
+                <b>💡 Buenas Prácticas UX/UI:</b> La edición parcial (`PATCH`) no obliga al usuario a reescribir campos que no cambiaron. El botón de eliminación (`DELETE`) está separado espacialmente y diferenciado cromáticamente en rojo para evitar clics accidentales (Ley de Hick / Prevención de Errores).
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 5: PERFIL Y TOKENS -->
+    <div id="screen-profile" class="screen">
+        <div class="canvas" id="canvas-profile">
+            <div class="screen-header">
+                <h2>5. Perfil de Usuario y Diagnóstico de Seguridad</h2>
+                <div class="meta-tags">
+                    <span class="badge rest-get">GET /api/v1/users/me</span>
+                    <span class="badge">JWT Claims (sub, exp, iat)</span>
+                </div>
+            </div>
+
+            <div class="wf-grid-2">
+                <!-- Info de Usuario -->
+                <div class="wf-box">
+                    <span class="wf-annot">Entidad: UserPublic</span>
+                    <div style="text-align:center; padding:10px 0;">
+                        <div style="width:70px; height:70px; background:#cbd5e1; border-radius:50%; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:1.5rem;">👤</div>
+                        <h3 style="font-size:1.05rem;">Carlos Perez</h3>
+                        <p style="font-size:.8rem; color:#64748b;">carlos.perez@example.com</p>
+                    </div>
+                    <div style="border-top:1px solid #cbd5e1; padding-top:10px; font-size:.8rem;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                            <span>ID de Usuario:</span> <b>1</b>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                            <span>Estado de Cuenta:</span> <span class="badge" style="background:#dcfce7;">ACTIVO</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                            <span>Rol:</span> <b>Usuario Regular</b>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagnóstico de Token JWT -->
+                <div class="wf-box">
+                    <span class="wf-annot">Seguridad: JWT Token Inspector</span>
+                    <h4 style="margin-bottom:8px; font-size:.9rem;">Detalles del Token Bearer Actual</h4>
+                    <div style="background:#1e293b; color:#38bdf8; font-family:monospace; padding:10px; border-radius:4px; font-size:.75rem; margin-bottom:10px; overflow-x:auto;">
+                        {<br>
+                        &nbsp;&nbsp;"sub": "1",<br>
+                        &nbsp;&nbsp;"iat": 1789611589,<br>
+                        &nbsp;&nbsp;"exp": 1789613389,<br>
+                        &nbsp;&nbsp;"alg": "HS256"<br>
+                        }
+                    </div>
+                    <div style="font-size:.75rem; color:#475569;">
+                        ⏱️ Tiempo restante de sesión: <b>24 minutos</b> (Expiración forzada de 30 min).
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-notes">
+                <b>💡 Buenas Prácticas UX/UI:</b> Transparencia para el usuario respecto al estado de su sesión y confirmación de que contraseñas u hashes no se transmiten ni quedan almacenados en el navegador.
+            </div>
+        </div>
+    </div>
+
+    <!-- PANTALLA 6: OPENAPI / SWAGGER -->
+    <div id="screen-docs" class="screen">
+        <div class="canvas" id="canvas-docs">
+            <div class="screen-header">
+                <h2>6. Consola Interactiva y Documentación (/docs)</h2>
+                <div class="meta-tags">
+                    <span class="badge">OpenAPI 3.1</span>
+                    <span class="badge">Swagger UI</span>
+                    <span class="badge">ReDoc</span>
+                </div>
+            </div>
+
+            <div class="wf-box" style="margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h3 style="font-size:1.1rem;">Users & Tasks API <span class="badge" style="background:#dbeafe;">v1.0.0</span></h3>
+                        <p style="font-size:.8rem; color:#64748b;">Documentación interactiva generada automáticamente por FastAPI.</p>
+                    </div>
+                    <button class="wf-btn" style="width:auto; padding:6px 14px; background:#10b981;">Authorize 🔒</button>
+                </div>
+            </div>
+
+            <!-- Endpoints list -->
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="border:1px solid #60a5fa; background:#eff6ff; padding:8px 12px; border-radius:4px; display:flex; align-items:center; gap:10px;">
+                    <span class="badge rest-get">GET</span>
+                    <code style="font-weight:600;">/api/v1/categories</code>
+                    <span style="font-size:.8rem; color:#64748b; margin-left:auto;">Listar categorías públicas</span>
+                </div>
+                <div style="border:1px solid #4ade80; background:#f0fdf4; padding:8px 12px; border-radius:4px; display:flex; align-items:center; gap:10px;">
+                    <span class="badge rest-post">POST</span>
+                    <code style="font-weight:600;">/api/v1/tasks</code>
+                    <span style="font-size:.8rem; color:#64748b; margin-left:auto;">Crear tarea para el usuario autenticado</span>
+                </div>
+                <div style="border:1px solid #fcd34d; background:#fffbeb; padding:8px 12px; border-radius:4px; display:flex; align-items:center; gap:10px;">
+                    <span class="badge rest-patch">PATCH</span>
+                    <code style="font-weight:600;">/api/v1/tasks/{task_id}</code>
+                    <span style="font-size:.8rem; color:#64748b; margin-left:auto;">Modificación parcial de tarea propia</span>
+                </div>
+                <div style="border:1px solid #f87171; background:#fef2f2; padding:8px 12px; border-radius:4px; display:flex; align-items:center; gap:10px;">
+                    <span class="badge rest-delete">DELETE</span>
+                    <code style="font-weight:600;">/api/v1/tasks/{task_id}</code>
+                    <span style="font-size:.8rem; color:#64748b; margin-left:auto;">Eliminación definitiva de tarea</span>
+                </div>
+            </div>
+
+            <div class="ux-notes">
+                <b>💡 Buenas Prácticas UX/UI:</b> Estandarización visual de métodos HTTP reconocida mundialmente en OpenAPI. Facilita la adopción y testing por parte de equipos frontend e integradores externos.
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE NAVEGACIÓN Y TOGGLE DE DISPOSITIVOS -->
+    <script>
+        const selector = document.getElementById('screen-selector');
+        selector.addEventListener('change', function() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const activeScreen = document.getElementById(this.value);
+            if (activeScreen) activeScreen.classList.add('active');
+        });
+
+        function setDevice(device) {
+            const canvases = document.querySelectorAll('.canvas');
+            const btnDesktop = document.getElementById('btn-desktop');
+            const btnMobile = document.getElementById('btn-mobile');
+
+            if (device === 'mobile') {
+                canvases.forEach(c => c.classList.add('mobile-view'));
+                btnMobile.classList.add('active');
+                btnDesktop.classList.remove('active');
+            } else {
+                canvases.forEach(c => c.classList.remove('mobile-view'));
+                btnDesktop.classList.add('active');
+                btnMobile.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>

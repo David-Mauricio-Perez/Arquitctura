@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockups Hi-Fi — FastAPI Layered REST Architecture</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ========== GLOBAL & THEME ========== */
+body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:#0b0f19;
+    color:#f8fafc;
+    min-height:100vh;
+}
+
+/* ========== BARRA SUPERIOR FIJA ========== */
+.topbar{
+    background:#0f172a;
+    border-bottom:1px solid #1e293b;
+    padding:12px 24px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+.topbar h1{
+    font-size:1.05rem;
+    color:#38bdf8;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    letter-spacing:.5px;
+}
+.topbar select{
+    background:#1e293b;
+    color:#f8fafc;
+    border:1px solid #334155;
+    padding:8px 14px;
+    border-radius:6px;
+    font-size:.9rem;
+    cursor:pointer;
+    outline:none;
+}
+.topbar select:focus{border-color:#38bdf8}
+.topbar .info{
+    margin-left:auto;
+    font-size:.8rem;
+    color:#94a3b8;
+    display:flex;
+    gap:12px;
+}
+.topbar .info span{display:flex;align-items:center;gap:4px}
+
+/* ========== TABS DISPOSITIVOS ========== */
+.view-bar{
+    background:#111827;
+    border-bottom:1px solid #1f2937;
+    padding:0 24px;
+    display:flex;
+    position:sticky;
+    top:57px;
+    z-index:998;
+}
+.view-btn{
+    background:transparent;
+    color:#94a3b8;
+    border:none;
+    border-bottom:3px solid transparent;
+    padding:12px 20px;
+    font-size:.85rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    transition:all .2s;
+}
+.view-btn.active{
+    color:#38bdf8;
+    border-bottom-color:#38bdf8;
+}
+.view-btn:hover{color:#f8fafc}
+.view-panel{display:none;padding:30px 20px;}
+.view-panel.active{display:block}
+.screen{display:none}
+.screen.active{display:block}
+
+/* ========== MARCOS DE DISPOSITIVOS ========== */
+.devices-wrap{
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* Laptop / Desktop Chrome */
+.device-desktop{
+    width:100%;
+    max-width:1150px;
+    background:#1e293b;
+    border-radius:12px;
+    box-shadow:0 25px 60px rgba(0,0,0,.7),0 0 1px 1px rgba(255,255,255,.1);
+    overflow:hidden;
+}
+.browser-bar{
+    background:#0f172a;
+    padding:10px 16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    border-bottom:1px solid #1e293b;
+}
+.browser-dots{display:flex;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot.red{background:#ef4444}
+.dot.yellow{background:#f59e0b}
+.dot.green{background:#10b981}
+.browser-url{
+    background:#1e293b;
+    border:1px solid #334155;
+    border-radius:6px;
+    padding:4px 14px;
+    font-size:.78rem;
+    color:#94a3b8;
+    font-family:monospace;
+    flex:1;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.browser-url b{color:#38bdf8}
+
+/* Smartphone Mobile Frame */
+.device-phone{
+    width:380px;
+    background:#1e293b;
+    border-radius:44px;
+    padding:12px;
+    box-shadow:0 25px 60px rgba(0,0,0,.8),0 0 1px 1px rgba(255,255,255,.1);
+    flex-shrink:0;
+}
+.phone-inner{
+    background:#030712;
+    border-radius:34px;
+    overflow:hidden;
+    min-height:740px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+}
+.phone-notch{
+    width:120px;
+    height:22px;
+    background:#1e293b;
+    border-radius:0 0 14px 14px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+.notch-camera{width:8px;height:8px;background:#0f172a;border-radius:50%}
+.phone-statusbar{
+    display:flex;
+    justify-content:space-between;
+    padding:6px 20px 2px;
+    font-size:.7rem;
+    color:#94a3b8;
+}
+
+/* ========== COMPONENTES DE UI HI-FI ========== */
+.app-nav{
+    background:#0f172a;
+    border-bottom:1px solid #1e293b;
+    padding:12px 24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+.brand{
+    font-weight:700;
+    font-size:1rem;
+    color:#f8fafc;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.brand-badge{
+    background:#0284c7;
+    color:#fff;
+    font-size:.65rem;
+    padding:2px 6px;
+    border-radius:4px;
+    font-weight:600;
+}
+.nav-menu{
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+.nav-link{
+    color:#94a3b8;
+    text-decoration:none;
+    font-size:.85rem;
+    font-weight:500;
+    transition:color .2s;
+}
+.nav-link.active{color:#38bdf8}
+.user-avatar{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:.85rem;
+}
+
+/* Layout general */
+.app-content{
+    padding:28px;
+    background:#030712;
+    min-height:580px;
+}
+
+/* Badges de métodos REST */
+.method-badge{
+    font-size:.7rem;
+    font-weight:700;
+    font-family:monospace;
+    padding:3px 7px;
+    border-radius:4px;
+    display:inline-flex;
+    align-items:center;
+}
+.method-get{background:rgba(56,189,248,.15);color:#38bdf8;border:1px solid rgba(56,189,248,.3)}
+.method-post{background:rgba(34,197,94,.15);color:#22c55e;border:1px solid rgba(34,197,94,.3)}
+.method-patch{background:rgba(234,179,8,.15);color:#eab308;border:1px solid rgba(234,179,8,.3)}
+.method-delete{background:rgba(239,68,68,.15);color:#ef4444;border:1px solid rgba(239,68,68,.3)}
+
+/* Botones */
+.btn-primary{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:6px;
+    font-size:.85rem;
+    font-weight:600;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    transition:background .2s;
+}
+.btn-primary:hover{background:#1d4ed8}
+.btn-secondary{
+    background:#1e293b;
+    color:#f8fafc;
+    border:1px solid #334155;
+    padding:10px 18px;
+    border-radius:6px;
+    font-size:.85rem;
+    font-weight:500;
+    cursor:pointer;
+}
+.btn-secondary:hover{background:#334155}
+.btn-danger{
+    background:#dc2626;
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    font-size:.8rem;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* Tarjetas y Contenedores */
+.card{
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.4);
+}
+.card:hover{border-color:#334155}
+
+/* Form inputs */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:.8rem;font-weight:500;color:#94a3b8;margin-bottom:6px}
+.form-input{
+    width:100%;
+    background:#1e293b;
+    border:1px solid #334155;
+    color:#f8fafc;
+    padding:10px 12px;
+    border-radius:6px;
+    font-size:.85rem;
+    outline:none;
+}
+.form-input:focus{border-color:#38bdf8;box-shadow:0 0 0 2px rgba(56,189,248,.2)}
+
+/* Status pills */
+.pill{
+    font-size:.7rem;
+    font-weight:600;
+    padding:3px 9px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+}
+.pill-pending{background:rgba(234,179,8,.15);color:#facc15}
+.pill-progress{background:rgba(56,189,248,.15);color:#38bdf8}
+.pill-completed{background:rgba(34,197,94,.15);color:#4ade80}
+.pill-cat{background:#1e293b;color:#e2e8f0;border:1px solid #334155}
+
+/* Grid de tareas */
+.tasks-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+    gap:18px;
+    margin-top:20px;
+}
+.task-card{
+    background:#0f172a;
+    border:1px solid #1e293b;
+    border-radius:10px;
+    padding:18px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:transform .2s,border-color .2s;
+}
+.task-card:hover{
+    transform:translateY(-2px);
+    border-color:#38bdf8;
+}
+.task-header{display:flex;justify-content:space-between;align-items:flex-start}
+.task-title{font-size:.95rem;font-weight:600;color:#f8fafc}
+.task-desc{font-size:.8rem;color:#94a3b8;line-height:1.4}
+.task-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:12px;
+    border-top:1px solid #1e293b;
+    font-size:.75rem;
+    color:#64748b;
+}
+
+/* Notas UX */
+.ux-box{
+    margin-top:24px;
+    background:#111827;
+    border-left:4px solid #38bdf8;
+    padding:14px 18px;
+    border-radius:0 8px 8px 0;
+    font-size:.82rem;
+    color:#cbd5e1;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+}
+.ux-box b{color:#38bdf8}
+</style>
+</head>
+<body>
+
+    <!-- TOPBAR SELECTOR -->
+    <div class="topbar">
+        <h1>✨ Mockups Hi-Fi — Arquitectura REST API</h1>
+        <select id="screen-selector">
+            <option value="screen-auth">1. Vista de Autenticación (Login & Registro)</option>
+            <option value="screen-dashboard">2. Dashboard Principal de Tareas (/tasks - Protegido)</option>
+            <option value="screen-categories">3. Catálogo Público de Categorías (/categories - Público)</option>
+            <option value="screen-task-edit">4. Modal de Edición Parcial & Verificación BOLA (/tasks/{id})</option>
+            <option value="screen-profile">5. Perfil de Usuario & Inspector de Tokens JWT (/users/me)</option>
+            <option value="screen-docs">6. Consola Interactiva OpenAPI / Swagger UI (/docs)</option>
+        </select>
+        <div class="info">
+            <span>🟢 Status: Online</span>
+            <span>⚡ API v1.0.0</span>
+            <span>🔐 JWT HS256</span>
+        </div>
+    </div>
+
+    <!-- DEVICE TABS -->
+    <div class="view-bar">
+        <button class="view-btn active" onclick="switchDevice('desktop')">🖥️ Vista Escritorio (1150px)</button>
+        <button class="view-btn" onclick="switchDevice('phone')">📱 Vista Móvil (380px)</button>
+        <button class="view-btn" onclick="switchDevice('both')">🔄 Comparativa Dual (Ambos)</button>
+    </div>
+
+    <!-- ==================== PANTALLA 1: AUTENTICACIÓN ==================== -->
+    <div id="screen-auth" class="screen active">
+        <div class="view-panel active">
+            <div class="devices-wrap">
+                <!-- Desktop Frame -->
+                <div class="device-desktop" id="auth-desk">
+                    <div class="browser-bar">
+                        <div class="browser-dots">
+                            <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+                        </div>
+                        <div class="browser-url">🔒 https://api.empresa.com/<b>api/v1/auth/login</b></div>
+                        <span class="method-badge method-post">POST /auth</span>
+                    </div>
+
+                    <div class="app-content" style="display:flex;align-items:center;justify-content:center;padding:48px 24px;">
+                        <div class="card" style="width:100%;max-width:440px;background:#0f172a;border:1px solid #1e293b;padding:32px;">
+                            <div style="text-align:center;margin-bottom:24px;">
+                                <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#0284c7,#4f46e5);margin-bottom:12px;">⚡</div>
+                                <h2 style="font-size:1.3rem;font-weight:700;">Users & Tasks API</h2>
+                                <p style="font-size:.8rem;color:#94a3b8;margin-top:4px;">Inicio de sesión seguro mediante OAuth2 y Argon2</p>
+                            </div>
+
+                            <form onsubmit="return false;">
+                                <div class="form-group">
+                                    <label class="form-label">Correo Electrónico (Username)</label>
+                                    <input type="email" class="form-input" value="carlos.perez@example.com">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Contraseña</label>
+                                    <input type="password" class="form-input" value="••••••••••••••••">
+                                </div>
+                                <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;margin-top:8px;">
+                                    🔐 Iniciar Sesión (Obtener JWT)
+                                </button>
+                            </form>
+
+                            <div style="margin-top:20px;padding-top:16px;border-top:1px solid #1e293b;text-align:center;font-size:.8rem;color:#94a3b8;">
+                                ¿No tienes cuenta? <a href="#" style="color:#38bdf8;text-decoration:none;font-weight:600;">Registrarse en /register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Frame -->
+                <div class="device-phone" id="auth-phone">
+                    <div class="phone-inner">
+                        <div class="phone-notch"><div class="notch-camera"></div></div>
+                        <div class="phone-statusbar"><span>9:41</span><span>5G 📶 100%</span></div>
+                        <div style="padding:24px 20px;display:flex;flex-direction:column;justify-content:center;flex:1;">
+                            <div style="text-align:center;margin-bottom:20px;">
+                                <div style="font-size:2rem;margin-bottom:8px;">⚡</div>
+                                <h3 style="font-size:1.15rem;font-weight:700;">Acceso Móvil</h3>
+                                <p style="font-size:.75rem;color:#94a3b8;">Token Bearer en header HTTP</p>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" value="carlos@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Contraseña</label>
+                                <input type="password" class="form-input" value="••••••••">
+                            </div>
+                            <button class="btn-primary" style="width:100%;justify-content:center;padding:10px;">Ingresar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-box">
+                <div>💡</div>
+                <div><b>Criterio UX/UI & REST:</b> Cumple con el estándar <b>RFC 6749 (OAuth2 Password Flow)</b>. La interfaz previene ataques de fuerza bruta al no revelar si el correo existe o no en caso de error (OWASP API2).</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PANTALLA 2: DASHBOARD ==================== -->
+    <div id="screen-dashboard" class="screen">
+        <div class="view-panel active">
+            <div class="devices-wrap">
+                <!-- Desktop Frame -->
+                <div class="device-desktop" id="dash-desk">
+                    <div class="browser-bar">
+                        <div class="browser-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                        <div class="browser-url">🔒 https://api.empresa.com/<b>api/v1/tasks?status=in_progress&page=1</b></div>
+                        <span class="method-badge method-get">GET /tasks</span>
+                    </div>
+
+                    <!-- App Navigation -->
+                    <div class="app-nav">
+                        <div class="brand">
+                            <span style="color:#38bdf8;">⚡</span> Users & Tasks API
+                            <span class="brand-badge">REST v1</span>
+                        </div>
+                        <div class="nav-menu">
+                            <a href="#" class="nav-link active">Mis Tareas</a>
+                            <a href="#" class="nav-link">Categorías Públicas</a>
+                            <a href="#" class="nav-link">Swagger UI</a>
+                            <div style="display:flex;align-items:center;gap:10px;margin-left:12px;border-left:1px solid #334155;padding-left:16px;">
+                                <div class="user-avatar">CP</div>
+                                <div style="font-size:.8rem;">
+                                    <div style="font-weight:600;">Carlos Perez</div>
+                                    <div style="color:#64748b;font-size:.7rem;">ID: 1 • Activo</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App Content -->
+                    <div class="app-content">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:20px;">
+                            <div>
+                                <h2 style="font-size:1.3rem;font-weight:700;">Mis Tareas</h2>
+                                <p style="font-size:.8rem;color:#94a3b8;margin-top:2px;">Mostrando tareas protegidas vinculadas a tu cuenta (BOLA Active).</p>
+                            </div>
+                            <button class="btn-primary">+ Nueva Tarea (POST)</button>
+                        </div>
+
+                        <!-- Filtros de Paginación y Estado -->
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-radius:8px;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+                            <span style="font-size:.8rem;color:#94a3b8;font-weight:600;">Filtros REST:</span>
+                            <select class="form-input" style="width:auto;padding:6px 12px;">
+                                <option>Estado: Todos</option>
+                                <option>pending</option>
+                                <option selected>in_progress</option>
+                                <option>completed</option>
+                            </select>
+                            <select class="form-input" style="width:auto;padding:6px 12px;">
+                                <option>Categoría: Todas</option>
+                                <option>Trabajo</option>
+                                <option>Estudio</option>
+                            </select>
+                            <span style="font-size:.8rem;color:#64748b;margin-left:auto;">
+                                Parámetros URI: <code>?status=in_progress&page=1&page_size=20</code>
+                            </span>
+                        </div>
+
+                        <!-- Tasks Grid -->
+                        <div class="tasks-grid">
+                            <div class="task-card">
+                                <div class="task-header">
+                                    <span class="pill pill-progress">● IN_PROGRESS</span>
+                                    <span class="pill pill-cat" style="border-color:#2563eb;color:#60a5fa;">#Trabajo</span>
+                                </div>
+                                <div class="task-title">Auditoría Top 10 Criterios REST</div>
+                                <div class="task-desc">Evaluar la arquitectura en capas frente a las guías de Richardson y OWASP API Security.</div>
+                                <div class="task-footer">
+                                    <span>Prioridad: <b style="color:#ef4444;">ALTA</b></span>
+                                    <div style="display:flex;gap:6px;">
+                                        <button class="btn-secondary" style="padding:4px 8px;font-size:.7rem;">PATCH</button>
+                                        <button class="btn-danger" style="padding:4px 8px;font-size:.7rem;">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="task-card">
+                                <div class="task-header">
+                                    <span class="pill pill-pending">● PENDING</span>
+                                    <span class="pill pill-cat" style="border-color:#8b5cf6;color:#a78bfa;">#Estudio</span>
+                                </div>
+                                <div class="task-title">Implementar Wireframes y Mockups</div>
+                                <div class="task-desc">Diseñar vistas representativas de la API para móvil y escritorio con layout interactivo.</div>
+                                <div class="task-footer">
+                                    <span>Prioridad: <b style="color:#f59e0b;">MEDIA</b></span>
+                                    <div style="display:flex;gap:6px;">
+                                        <button class="btn-secondary" style="padding:4px 8px;font-size:.7rem;">PATCH</button>
+                                        <button class="btn-danger" style="padding:4px 8px;font-size:.7rem;">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="task-card">
+                                <div class="task-header">
+                                    <span class="pill pill-completed">● COMPLETED</span>
+                                    <span class="pill pill-cat" style="border-color:#10b981;color:#34d399;">#Personal</span>
+                                </div>
+                                <div class="task-title">Validar tests en memoria con SQLite</div>
+                                <div class="task-desc">Asegurar que toda la suite de 24 tests unitarios y de integración pase con 100% de éxito.</div>
+                                <div class="task-footer">
+                                    <span>Prioridad: <b style="color:#10b981;">BAJA</b></span>
+                                    <div style="display:flex;gap:6px;">
+                                        <button class="btn-secondary" style="padding:4px 8px;font-size:.7rem;">PATCH</button>
+                                        <button class="btn-danger" style="padding:4px 8px;font-size:.7rem;">DELETE</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paginación -->
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid #1e293b;font-size:.8rem;color:#94a3b8;">
+                            <div>Total: <b>3 tareas</b> • Página 1 de 1</div>
+                            <div style="display:flex;gap:6px;">
+                                <button class="btn-secondary" disabled style="opacity:.5;padding:6px 12px;">Anterior</button>
+                                <button class="btn-primary" style="padding:6px 12px;">1</button>
+                                <button class="btn-secondary" disabled style="opacity:.5;padding:6px 12px;">Siguiente</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phone Frame -->
+                <div class="device-phone" id="dash-phone">
+                    <div class="phone-inner">
+                        <div class="phone-notch"><div class="notch-camera"></div></div>
+                        <div class="phone-statusbar"><span>9:41</span><span>5G 📶 100%</span></div>
+                        <div style="background:#0f172a;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e293b;">
+                            <span style="font-weight:700;font-size:.9rem;color:#38bdf8;">⚡ Tasks App</span>
+                            <div class="user-avatar" style="width:28px;height:28px;font-size:.75rem;">CP</div>
+                        </div>
+                        <div style="padding:16px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <h4 style="font-size:1rem;font-weight:700;">Mis Tareas (3)</h4>
+                                <button class="btn-primary" style="padding:6px 10px;font-size:.75rem;">+ Crear</button>
+                            </div>
+                            <div class="task-card" style="padding:12px;">
+                                <div style="display:flex;justify-content:space-between;">
+                                    <span class="pill pill-progress" style="font-size:.65rem;">IN_PROGRESS</span>
+                                    <span class="pill pill-cat" style="font-size:.65rem;">#Trabajo</span>
+                                </div>
+                                <div style="font-size:.85rem;font-weight:600;">Auditoría Top 10 REST</div>
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:.7rem;">
+                                    <span>Prioridad: Alta</span>
+                                    <button class="btn-secondary" style="padding:2px 6px;">Editar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-box">
+                <div>💡</div>
+                <div><b>Criterio UX/UI & REST:</b> Tarjetas auto-contenidas con affordance visual claro para acciones idempotentes (`DELETE`) y parciales (`PATCH`). El tiempo de carga percibido se reduce mediante metadatos claros de paginación (`total`, `page_size`).</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PANTALLA 3: CATEGORÍAS PÚBLICAS ==================== -->
+    <div id="screen-categories" class="screen">
+        <div class="view-panel active">
+            <div class="devices-wrap">
+                <div class="device-desktop" id="cat-desk">
+                    <div class="browser-bar">
+                        <div class="browser-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                        <div class="browser-url">🌐 https://api.empresa.com/<b>api/v1/categories</b> (Público - Sin Token)</div>
+                        <span class="method-badge method-get">GET /categories</span>
+                    </div>
+
+                    <div class="app-nav">
+                        <div class="brand">
+                            <span style="color:#38bdf8;">⚡</span> Catálogo Abierto
+                            <span class="brand-badge" style="background:#8b5cf6;">ACCESO PÚBLICO</span>
+                        </div>
+                        <div class="nav-menu">
+                            <a href="#" class="nav-link active">Categorías</a>
+                            <a href="#" class="nav-link">Documentación API</a>
+                            <button class="btn-primary" style="padding:6px 14px;font-size:.8rem;">Iniciar Sesión</button>
+                        </div>
+                    </div>
+
+                    <div class="app-content">
+                        <!-- Hero Banner -->
+                        <div style="background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(99,102,241,.1));border:1px solid rgba(56,189,248,.2);border-radius:12px;padding:28px;margin-bottom:28px;text-align:center;">
+                            <h2 style="font-size:1.5rem;font-weight:800;color:#f8fafc;margin-bottom:8px;">Explora las Categorías de la Plataforma</h2>
+                            <p style="font-size:.9rem;color:#94a3b8;max-width:600px;margin:0 auto 16px;">
+                                Este endpoint es 100% público. Cualquier cliente o servicio externo puede consultar el catálogo sin necesidad de autenticarse con token Bearer.
+                            </p>
+                            <div style="display:inline-flex;gap:10px;">
+                                <span class="method-badge method-get" style="font-size:.8rem;padding:6px 12px;">GET /api/v1/categories</span>
+                                <span class="method-badge method-get" style="font-size:.8rem;padding:6px 12px;">GET /api/v1/categories/{id}</span>
+                            </div>
+                        </div>
+
+                        <!-- Categories Grid -->
+                        <div class="tasks-grid">
+                            <div class="card" style="border-top:4px solid #2563eb;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                    <h3 style="font-size:1.1rem;font-weight:700;">💼 Trabajo</h3>
+                                    <span class="pill" style="background:#1e3a8a;color:#93c5fd;">#2563EB</span>
+                                </div>
+                                <p style="font-size:.85rem;color:#94a3b8;line-height:1.5;margin-bottom:16px;">
+                                    Proyectos laborales, planificación estratégica, entregables de código y reuniones de sprint.
+                                </p>
+                                <div style="display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:#64748b;border-top:1px solid #1e293b;padding-top:10px;">
+                                    <span>ID: <b>1</b> • Estado: <b style="color:#22c55e;">Activa</b></span>
+                                    <span>Pública</span>
+                                </div>
+                            </div>
+
+                            <div class="card" style="border-top:4px solid #8b5cf6;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                    <h3 style="font-size:1.1rem;font-weight:700;">🎓 Estudio</h3>
+                                    <span class="pill" style="background:#4c1d95;color:#c4b5fd;">#8B5CF6</span>
+                                </div>
+                                <p style="font-size:.85rem;color:#94a3b8;line-height:1.5;margin-bottom:16px;">
+                                    Certificaciones, lecturas de documentación oficial, cursos y laboratorios prácticos.
+                                </p>
+                                <div style="display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:#64748b;border-top:1px solid #1e293b;padding-top:10px;">
+                                    <span>ID: <b>2</b> • Estado: <b style="color:#22c55e;">Activa</b></span>
+                                    <span>Pública</span>
+                                </div>
+                            </div>
+
+                            <div class="card" style="border-top:4px solid #10b981;">
+                                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                    <h3 style="font-size:1.1rem;font-weight:700;">🌱 Personal</h3>
+                                    <span class="pill" style="background:#064e3b;color:#6ee7b7;">#10B981</span>
+                                </div>
+                                <p style="font-size:.85rem;color:#94a3b8;line-height:1.5;margin-bottom:16px;">
+                                    Hábitos, salud, finanzas personales y actividades familiares de ocio.
+                                </p>
+                                <div style="display:flex;justify-content:space-between;align-items:center;font-size:.75rem;color:#64748b;border-top:1px solid #1e293b;padding-top:10px;">
+                                    <span>ID: <b>3</b> • Estado: <b style="color:#22c55e;">Activa</b></span>
+                                    <span>Pública</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-box">
+                <div>💡</div>
+                <div><b>Criterio UX/UI & REST:</b> Permite el acceso sin barreras cognitivas ni fricción de registro a recursos públicos informativos. Muestra con claridad qué operaciones requieren elevar privilegios mediante autenticación.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PANTALLA 4: MODAL EDICIÓN & BOLA ==================== -->
+    <div id="screen-task-edit" class="screen">
+        <div class="view-panel active">
+            <div class="devices-wrap">
+                <div class="device-desktop" id="edit-desk">
+                    <div class="browser-bar">
+                        <div class="browser-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                        <div class="browser-url">🔒 https://api.empresa.com/<b>api/v1/tasks/1</b></div>
+                        <span class="method-badge method-patch">PATCH /tasks/1</span>
+                    </div>
+
+                    <!-- Fondo atenuado simulando modal -->
+                    <div class="app-content" style="background:rgba(3,7,18,.85);display:flex;align-items:center;justify-content:center;padding:40px 20px;">
+                        <div class="card" style="width:100%;max-width:560px;background:#0f172a;border:1px solid #334155;box-shadow:0 25px 60px rgba(0,0,0,.9);position:relative;">
+                            
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid #1e293b;padding-bottom:12px;">
+                                <div>
+                                    <h3 style="font-size:1.1rem;font-weight:700;">Editar Tarea #1</h3>
+                                    <span style="font-size:.75rem;color:#64748b;">Actualización Parcial semántica con PATCH</span>
+                                </div>
+                                <span style="font-size:1.2rem;cursor:pointer;color:#94a3b8;">✕</span>
+                            </div>
+
+                            <!-- Banner BOLA Verification -->
+                            <div style="background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#86efac;padding:10px 14px;border-radius:6px;font-size:.78rem;margin-bottom:16px;display:flex;gap:8px;">
+                                <span>🛡️</span>
+                                <div><b>Validación BOLA Aprobada:</b> Tu usuario es el propietario verificado (<code>owner_id == current_user.id</code>). Las peticiones desde otros usuarios son rechazadas con HTTP 403 Forbidden.</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Título</label>
+                                <input type="text" class="form-input" value="Auditoría Top 10 Criterios REST">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-input" style="height:70px;resize:none;">Evaluar la arquitectura en capas frente a las guías de Richardson y OWASP API Security.</textarea>
+                            </div>
+
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                                <div class="form-group">
+                                    <label class="form-label">Estado (TaskStatus Enum)</label>
+                                    <select class="form-input">
+                                        <option>pending</option>
+                                        <option selected>in_progress</option>
+                                        <option>completed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Categoría Asociada</label>
+                                    <select class="form-input">
+                                        <option selected>Trabajo (#2563EB)</option>
+                                        <option>Estudio (#8B5CF6)</option>
+                                        <option>Personal (#10B981)</option>
+                                        <option>Sin Categoría</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid #1e293b;">
+                                <button class="btn-danger" style="display:flex;align-items:center;gap:6px;">
+                                    🗑️ Eliminar Tarea (204)
+                                </button>
+                                <div style="display:flex;gap:10px;">
+                                    <button class="btn-secondary">Cancelar</button>
+                                    <button class="btn-primary">Guardar Cambios (200)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-box">
+                <div>💡</div>
+                <div><b>Criterio UX/UI & REST:</b> El modal diferencia las acciones constructivas (`PATCH` en azul primario) de las destructivas (`DELETE` en rojo peligroso), requiriendo confirmación consciente (Prevención de Errores según Nielsen).</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PANTALLA 5: PERFIL & TOKENS ==================== -->
+    <div id="screen-profile" class="screen">
+        <div class="view-panel active">
+            <div class="devices-wrap">
+                <div class="device-desktop" id="prof-desk">
+                    <div class="browser-bar">
+                        <div class="browser-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                        <div class="browser-url">🔒 https://api.empresa.com/<b>api/v1/users/me</b></div>
+                        <span class="method-badge method-get">GET /users/me</span>
+                    </div>
+
+                    <div class="app-nav">
+                        <div class="brand">
+                            <span style="color:#38bdf8;">⚡</span> Users & Tasks API
+                        </div>
+                        <div class="nav-menu">
+                            <a href="#" class="nav-link">Mis Tareas</a>
+                            <a href="#" class="nav-link active">Mi Perfil</a>
+                        </div>
+                    </div>
+
+                    <div class="app-content">
+                        <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:24px;">
+                            <!-- Perfil Card -->
+                            <div class="card">
+                                <div style="text-align:center;padding:12px 0 20px;border-bottom:1px solid #1e293b;">
+                                    <div class="user-avatar" style="width:72px;height:72px;font-size:1.8rem;margin:0 auto 12px;">CP</div>
+                                    <h3 style="font-size:1.2rem;font-weight:700;">Carlos Perez</h3>
+                                    <p style="font-size:.85rem;color:#94a3b8;">carlos.perez@example.com</p>
+                                </div>
+
+                                <div style="padding-top:16px;display:flex;flex-direction:column;gap:12px;font-size:.85rem;">
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <span style="color:#94a3b8;">Identificador (ID):</span>
+                                        <span class="pill pill-cat">id = 1</span>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <span style="color:#94a3b8;">Estado de Cuenta:</span>
+                                        <span class="pill pill-completed">is_active = true</span>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <span style="color:#94a3b8;">Privilegios:</span>
+                                        <span class="pill pill-cat">Usuario Regular</span>
+                                    </div>
+                                    <div style="display:flex;justify-content:space-between;">
+                                        <span style="color:#94a3b8;">Fecha de Registro:</span>
+                                        <span style="color:#f8fafc;">2026-09-21 20:30 UTC</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- JWT Inspector Card -->
+                            <div class="card">
+                                <h3 style="font-size:1.05rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                                    🔑 Inspector de Sesión JWT (RFC 7519)
+                                </h3>
+                                <p style="font-size:.8rem;color:#94a3b8;margin-bottom:16px;">
+                                    El token es sin estado (stateless) y viaja en cada petición protegida en la cabecera <code>Authorization: Bearer</code>.
+                                </p>
+
+                                <div style="background:#030712;border:1px solid #1e293b;border-radius:8px;padding:16px;font-family:monospace;font-size:.8rem;line-height:1.6;color:#38bdf8;margin-bottom:16px;">
+                                    <span style="color:#64748b;">// Payload JWT Decodificado</span><br>
+                                    {<br>
+                                    &nbsp;&nbsp;<span style="color:#f43f5e;">"sub"</span>: <span style="color:#a78bfa;">"1"</span>, <span style="color:#64748b;">// Subject (User ID)</span><br>
+                                    &nbsp;&nbsp;<span style="color:#f43f5e;">"iat"</span>: <span style="color:#fbbf24;">1789611589</span>, <span style="color:#64748b;">// Issued At</span><br>
+                                    &nbsp;&nbsp;<span style="color:#f43f5e;">"exp"</span>: <span style="color:#fbbf24;">1789613389</span>, <span style="color:#64748b;">// Expires At (+30 min)</span><br>
+                                    &nbsp;&nbsp;<span style="color:#f43f5e;">"alg"</span>: <span style="color:#34d399;">"HS256"</span> <span style="color:#64748b;">// Firma Criptográfica</span><br>
+                                    }
+                                </div>
+
+                                <div style="display:flex;gap:10px;align-items:center;">
+                                    <button class="btn-primary" style="font-size:.8rem;padding:8px 14px;">Renovar Token</button>
+                                    <button class="btn-secondary" style="font-size:.8rem;padding:8px 14px;">Copiar Bearer Header</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-box">
+                <div>💡</div>
+                <div><b>Criterio UX/UI & REST:</b> Cumple con el principio de visibilidad del estado del sistema (Heurística 1 de Nielsen). El usuario visualiza la vigencia de su sesión y el payload seguro sin exponer nunca hashes ni contraseñas.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PANTALLA 6: OPENAPI & SWAGGER UI ==================== -->
+    <div id="screen-docs" class="screen">
+        <div class="view-panel active">
+            <div class="devices-wrap">
+                <div class="device-desktop" id="docs-desk">
+                    <div class="browser-bar">
+                        <div class="browser-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+                        <div class="browser-url">📖 https://api.empresa.com/<b>docs</b> (Swagger UI Interactivo)</div>
+                        <span class="method-badge method-get">OpenAPI 3.1.0</span>
+                    </div>
+
+                    <div style="background:#0f172a;padding:16px 28px;border-bottom:1px solid #1e293b;display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <h2 style="font-size:1.25rem;font-weight:700;">Users, Tasks & Categories API <span class="brand-badge">1.0.0</span></h2>
+                            <p style="font-size:.8rem;color:#94a3b8;margin-top:2px;">Documentación y consola OpenAPI autogenerada por FastAPI.</p>
+                        </div>
+                        <button class="btn-primary" style="background:#10b981;border-color:#059669;">Authorize 🔒</button>
+                    </div>
+
+                    <div class="app-content" style="display:flex;flex-direction:column;gap:12px;">
+                        
+                        <!-- Endpoint Item Categories GET -->
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-left:4px solid #38bdf8;border-radius:6px;padding:12px 18px;display:flex;align-items:center;gap:14px;">
+                            <span class="method-badge method-get">GET</span>
+                            <code style="font-size:.9rem;color:#f8fafc;font-weight:600;">/api/v1/categories</code>
+                            <span style="font-size:.8rem;color:#94a3b8;">Listar categorías disponibles (Acceso Público)</span>
+                            <span class="pill pill-cat" style="margin-left:auto;">200 OK</span>
+                        </div>
+
+                        <!-- Endpoint Item Tasks POST -->
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-left:4px solid #22c55e;border-radius:6px;padding:12px 18px;display:flex;align-items:center;gap:14px;">
+                            <span class="method-badge method-post">POST</span>
+                            <code style="font-size:.9rem;color:#f8fafc;font-weight:600;">/api/v1/tasks</code>
+                            <span style="font-size:.8rem;color:#94a3b8;">Crear nueva tarea para el usuario autenticado</span>
+                            <span class="pill pill-completed" style="margin-left:auto;">201 Created</span>
+                        </div>
+
+                        <!-- Endpoint Item Tasks PATCH -->
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-left:4px solid #eab308;border-radius:6px;padding:12px 18px;display:flex;align-items:center;gap:14px;">
+                            <span class="method-badge method-patch">PATCH</span>
+                            <code style="font-size:.9rem;color:#f8fafc;font-weight:600;">/api/v1/tasks/{task_id}</code>
+                            <span style="font-size:.8rem;color:#94a3b8;">Actualizar parcialmente una tarea (BOLA verificado)</span>
+                            <span class="pill pill-pending" style="margin-left:auto;">200 OK</span>
+                        </div>
+
+                        <!-- Endpoint Item Tasks DELETE -->
+                        <div style="background:#0f172a;border:1px solid #1e293b;border-left:4px solid #ef4444;border-radius:6px;padding:12px 18px;display:flex;align-items:center;gap:14px;">
+                            <span class="method-badge method-delete">DELETE</span>
+                            <code style="font-size:.9rem;color:#f8fafc;font-weight:600;">/api/v1/tasks/{task_id}</code>
+                            <span style="font-size:.8rem;color:#94a3b8;">Eliminar tarea del propietario de forma idempotente</span>
+                            <span class="pill" style="background:#450a0a;color:#fca5a5;margin-left:auto;">204 No Content</span>
+                        </div>
+
+                        <!-- JSON Response Simulator Box -->
+                        <div class="card" style="margin-top:10px;background:#030712;">
+                            <div style="font-size:.8rem;color:#94a3b8;font-weight:600;margin-bottom:8px;">
+                                📤 Ejemplo de Respuesta Exitosa (200 OK - TaskPublic):
+                            </div>
+                            <pre style="font-family:monospace;font-size:.78rem;color:#38bdf8;line-height:1.5;overflow-x:auto;">
+{
+  "id": 1,
+  "title": "Auditoría Top 10 Criterios REST",
+  "description": "Evaluar la arquitectura en capas frente a las guías de Richardson.",
+  "status": "in_progress",
+  "priority": "high",
+  "category_id": 1,
+  "owner_id": 1,
+  "created_at": "2026-09-23T14:20:00Z",
+  "updated_at": "2026-09-23T14:20:00Z"
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ux-box">
+                <div>💡</div>
+                <div><b>Criterio UX/UI & REST:</b> Cumple con el criterio de descubribilidad y auto-documentación. La interfaz visualiza contratos de datos, métodos canónicos y códigos de respuesta sin necesidad de manuales externos.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE NAVEGACIÓN Y DISPOSITIVOS -->
+    <script>
+        const selector = document.getElementById('screen-selector');
+        selector.addEventListener('change', function() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const activeScreen = document.getElementById(this.value);
+            if (activeScreen) activeScreen.classList.add('active');
+        });
+
+        function switchDevice(mode) {
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const desktops = document.querySelectorAll('.device-desktop');
+            const phones = document.querySelectorAll('.device-phone');
+
+            if (mode === 'desktop') {
+                desktops.forEach(d => d.style.display = 'block');
+                phones.forEach(p => p.style.display = 'none');
+            } else if (mode === 'phone') {
+                desktops.forEach(d => d.style.display = 'none');
+                phones.forEach(p => p.style.display = 'block');
+            } else {
+                desktops.forEach(d => d.style.display = 'block');
+                phones.forEach(p => p.style.display = 'block');
+            }
+        }
+    </script>
+</body>
+</html>
