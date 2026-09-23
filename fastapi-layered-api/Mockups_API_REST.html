@@ -411,34 +411,104 @@ body{
                         <div class="browser-dots">
                             <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
                         </div>
-                        <div class="browser-url">🔒 https://api.empresa.com/<b>api/v1/auth/login</b></div>
-                        <span class="method-badge method-post">POST /auth</span>
+                        <div class="browser-url">🔒 https://api.empresa.com/<b>api/v1/auth/login</b> & <b>/register</b></div>
+                        <span class="method-badge method-post">POST /auth/login</span>
+                        <span class="method-badge method-post" style="background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.3);">POST /auth/register</span>
                     </div>
 
-                    <div class="app-content" style="display:flex;align-items:center;justify-content:center;padding:48px 24px;">
-                        <div class="card" style="width:100%;max-width:440px;background:#0f172a;border:1px solid #1e293b;padding:32px;">
-                            <div style="text-align:center;margin-bottom:24px;">
-                                <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#0284c7,#4f46e5);margin-bottom:12px;">⚡</div>
-                                <h2 style="font-size:1.3rem;font-weight:700;">Users & Tasks API</h2>
-                                <p style="font-size:.8rem;color:#94a3b8;margin-top:4px;">Inicio de sesión seguro mediante OAuth2 y Argon2</p>
+                    <div class="app-content" style="padding:36px 28px;">
+                        <div style="text-align:center;max-width:680px;margin:0 auto 28px;">
+                            <div style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0284c7,#4f46e5);margin-bottom:10px;">⚡</div>
+                            <h2 style="font-size:1.35rem;font-weight:700;">Autenticación & Gestión de Identidad</h2>
+                            <p style="font-size:.82rem;color:#94a3b8;margin-top:4px;">Contratos REST v1 para acceso mediante OAuth2 Password Flow y registro tipado con Pydantic v2.</p>
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(360px, 1fr));gap:24px;max-width:960px;margin:0 auto;align-items:stretch;">
+                            <!-- Left: Componente Login -->
+                            <div class="card" style="background:#0f172a;border:1px solid #1e293b;padding:26px;display:flex;flex-direction:column;justify-content:space-between;">
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                        <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:#38bdf8;font-weight:700;">Componente: Login Form</span>
+                                        <span class="method-badge method-post">POST /auth/login</span>
+                                    </div>
+                                    <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:4px;">Iniciar Sesión</h3>
+                                    <p style="font-size:.78rem;color:#94a3b8;margin-bottom:18px;">Autenticación OAuth2 Password Flow (retorna JWT Bearer Token).</p>
+
+                                    <form onsubmit="return false;">
+                                        <div class="form-group">
+                                            <label class="form-label">Correo Electrónico (Username)</label>
+                                            <input type="email" class="form-input" value="carlos.perez@example.com">
+                                            <span style="font-size:.68rem;color:#64748b;display:block;margin-top:4px;">Parámetro RFC 6749: <code>username</code></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Contraseña</label>
+                                            <input type="password" class="form-input" value="••••••••••••••••">
+                                            <span style="font-size:.68rem;color:#64748b;display:block;margin-top:4px;">Parámetro RFC 6749: <code>password</code></span>
+                                        </div>
+                                        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;margin-top:8px;">
+                                            🔐 Iniciar Sesión (Obtener JWT)
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div style="margin-top:20px;padding-top:14px;border-top:1px solid #1e293b;font-size:.72rem;color:#64748b;line-height:1.4;">
+                                    <div style="color:#94a3b8;font-weight:600;margin-bottom:3px;">📋 Contrato HTTP:</div>
+                                    <code>Content-Type: application/x-www-form-urlencoded</code><br>
+                                    <code>Respuesta: 200 OK -> TokenResponse { access_token, token_type }</code>
+                                </div>
                             </div>
 
-                            <form onsubmit="return false;">
-                                <div class="form-group">
-                                    <label class="form-label">Correo Electrónico (Username)</label>
-                                    <input type="email" class="form-input" value="carlos.perez@example.com">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Contraseña</label>
-                                    <input type="password" class="form-input" value="••••••••••••••••">
-                                </div>
-                                <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;margin-top:8px;">
-                                    🔐 Iniciar Sesión (Obtener JWT)
-                                </button>
-                            </form>
+                            <!-- Right: Componente Registro de Usuario (Pydantic UserCreate) -->
+                            <div class="card" style="background:#0f172a;border:1px solid #1e293b;padding:26px;display:flex;flex-direction:column;justify-content:space-between;position:relative;">
+                                <div style="position:absolute;top:-10px;right:20px;background:#059669;color:#fff;font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.5px;">SCHEMA: UserCreate</div>
+                                <div>
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
+                                        <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:#34d399;font-weight:700;">Componente: Registro de Usuario (Pydantic UserCreate)</span>
+                                        <span class="method-badge method-post" style="background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(16,185,129,.3);">POST /auth/register</span>
+                                    </div>
+                                    <h3 style="font-size:1.15rem;font-weight:700;margin-bottom:4px;">Crear Cuenta Nueva</h3>
+                                    <p style="font-size:.78rem;color:#94a3b8;margin-bottom:18px;">Registro tipado y validado en backend con Pydantic v2.</p>
 
-                            <div style="margin-top:20px;padding-top:16px;border-top:1px solid #1e293b;text-align:center;font-size:.8rem;color:#94a3b8;">
-                                ¿No tienes cuenta? <a href="#" style="color:#38bdf8;text-decoration:none;font-weight:600;">Registrarse en /register</a>
+                                    <form onsubmit="return false;">
+                                        <div class="form-group">
+                                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                                <label class="form-label" style="margin:0;">Nombre Completo (<code>full_name</code>)</label>
+                                                <span style="font-size:.65rem;color:#38bdf8;font-family:monospace;">str (min: 1, max: 255)</span>
+                                            </div>
+                                            <input type="text" class="form-input" value="Ada Lovelace">
+                                        </div>
+                                        <div class="form-group">
+                                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                                <label class="form-label" style="margin:0;">Correo Electrónico (<code>email</code>)</label>
+                                                <span style="font-size:.65rem;color:#34d399;font-family:monospace;">EmailStr (RFC 5322)</span>
+                                            </div>
+                                            <input type="email" class="form-input" value="ada.lovelace@example.com">
+                                            <span style="font-size:.68rem;color:#64748b;display:block;margin-top:3px;">Debe ser único en base de datos (409 Conflict si existe)</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                                                <label class="form-label" style="margin:0;">Contraseña (<code>password</code>)</label>
+                                                <span style="font-size:.65rem;color:#facc15;font-family:monospace;">min_length: 8 (Argon2id)</span>
+                                            </div>
+                                            <input type="password" class="form-input" value="SuperSecure2026!">
+                                            <div style="display:flex;align-items:center;gap:6px;margin-top:6px;">
+                                                <div style="flex:1;height:4px;background:#22c55e;border-radius:2px;"></div>
+                                                <div style="flex:1;height:4px;background:#22c55e;border-radius:2px;"></div>
+                                                <div style="flex:1;height:4px;background:#22c55e;border-radius:2px;"></div>
+                                                <span style="font-size:.65rem;color:#4ade80;font-weight:600;">Fortaleza: Alta</span>
+                                            </div>
+                                        </div>
+                                        <button class="btn-primary" style="width:100%;justify-content:center;padding:12px;margin-top:8px;background:linear-gradient(135deg,#10b981,#059669);">
+                                            ✨ Registrar Usuario (201 Created)
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div style="margin-top:20px;padding-top:14px;border-top:1px solid #1e293b;font-size:.72rem;color:#64748b;line-height:1.4;">
+                                    <div style="color:#94a3b8;font-weight:600;margin-bottom:3px;">📋 Contrato HTTP:</div>
+                                    <code>Content-Type: application/json</code><br>
+                                    <code>Respuesta: 201 Created -> UserPublic (password omitido)</code>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -449,21 +519,63 @@ body{
                     <div class="phone-inner">
                         <div class="phone-notch"><div class="notch-camera"></div></div>
                         <div class="phone-statusbar"><span>9:41</span><span>5G 📶 100%</span></div>
-                        <div style="padding:24px 20px;display:flex;flex-direction:column;justify-content:center;flex:1;">
-                            <div style="text-align:center;margin-bottom:20px;">
-                                <div style="font-size:2rem;margin-bottom:8px;">⚡</div>
-                                <h3 style="font-size:1.15rem;font-weight:700;">Acceso Móvil</h3>
-                                <p style="font-size:.75rem;color:#94a3b8;">Token Bearer en header HTTP</p>
+
+                        <!-- Segmented Tab Selector -->
+                        <div style="display:flex;background:#1e293b;border-radius:8px;padding:3px;margin:12px 16px 10px;">
+                            <button id="phone-tab-login" onclick="switchPhoneAuth('login')" style="flex:1;padding:7px 4px;font-size:.72rem;font-weight:600;background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer;transition:all .2s;">
+                                🔑 Iniciar Sesión
+                            </button>
+                            <button id="phone-tab-register" onclick="switchPhoneAuth('register')" style="flex:1;padding:7px 4px;font-size:.72rem;font-weight:600;background:transparent;color:#94a3b8;border:none;border-radius:6px;cursor:pointer;transition:all .2s;">
+                                ✨ Registro (UserCreate)
+                            </button>
+                        </div>
+
+                        <!-- Phone Sub-view 1: Login -->
+                        <div id="phone-auth-login" style="padding:14px 20px 24px;display:flex;flex-direction:column;justify-content:center;flex:1;">
+                            <div style="text-align:center;margin-bottom:16px;">
+                                <div style="font-size:1.8rem;margin-bottom:4px;">⚡</div>
+                                <h3 style="font-size:1.1rem;font-weight:700;">Acceso Móvil</h3>
+                                <p style="font-size:.72rem;color:#94a3b8;">OAuth2 Password Flow</p>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Email</label>
+                                <label class="form-label">Email (Username)</label>
                                 <input type="email" class="form-input" value="carlos@example.com">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Contraseña</label>
                                 <input type="password" class="form-input" value="••••••••">
                             </div>
-                            <button class="btn-primary" style="width:100%;justify-content:center;padding:10px;">Ingresar</button>
+                            <button class="btn-primary" style="width:100%;justify-content:center;padding:10px;margin-top:4px;">Ingresar (JWT)</button>
+                            <div style="margin-top:14px;text-align:center;font-size:.72rem;color:#64748b;">
+                                Token Bearer en header HTTP
+                            </div>
+                        </div>
+
+                        <!-- Phone Sub-view 2: Registro UserCreate -->
+                        <div id="phone-auth-register" style="padding:10px 20px 24px;display:none;flex-direction:column;justify-content:center;flex:1;">
+                            <div style="text-align:center;margin-bottom:12px;">
+                                <span style="font-size:.65rem;background:rgba(16,185,129,.15);color:#34d399;padding:2px 8px;border-radius:999px;font-weight:700;display:inline-block;margin-bottom:4px;">SCHEMA: UserCreate</span>
+                                <h3 style="font-size:1.1rem;font-weight:700;">Crear Cuenta</h3>
+                                <p style="font-size:.72rem;color:#94a3b8;">POST /api/v1/auth/register</p>
+                            </div>
+                            <div class="form-group" style="margin-bottom:8px;">
+                                <label class="form-label" style="font-size:.75rem;">Nombre (<code>full_name</code>)</label>
+                                <input type="text" class="form-input" style="padding:8px 10px;font-size:.8rem;" value="Ada Lovelace">
+                            </div>
+                            <div class="form-group" style="margin-bottom:8px;">
+                                <label class="form-label" style="font-size:.75rem;">Email (<code>EmailStr</code>)</label>
+                                <input type="email" class="form-input" style="padding:8px 10px;font-size:.8rem;" value="ada@ejemplo.com">
+                            </div>
+                            <div class="form-group" style="margin-bottom:12px;">
+                                <label class="form-label" style="font-size:.75rem;">Password (<code>min: 8</code>)</label>
+                                <input type="password" class="form-input" style="padding:8px 10px;font-size:.8rem;" value="••••••••••••">
+                            </div>
+                            <button class="btn-primary" style="width:100%;justify-content:center;padding:10px;background:linear-gradient(135deg,#10b981,#059669);">
+                                ✨ Registrarse (201 Created)
+                            </button>
+                            <div style="margin-top:10px;text-align:center;font-size:.7rem;color:#64748b;">
+                                Retorna UserPublic (sin password)
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -471,7 +583,7 @@ body{
 
             <div class="ux-box">
                 <div>💡</div>
-                <div><b>Criterio UX/UI & REST:</b> Cumple con el estándar <b>RFC 6749 (OAuth2 Password Flow)</b>. La interfaz previene ataques de fuerza bruta al no revelar si el correo existe o no en caso de error (OWASP API2).</div>
+                <div><b>Criterio UX/UI & REST:</b> Integra tanto el <b>Componente: Login Form (RFC 6749 OAuth2 Password Flow)</b> como el <b>Componente: Registro de Usuario (Pydantic UserCreate)</b>. El registro valida tipos en cliente y delega la validación estricta a Pydantic en backend (<code>EmailStr</code> RFC 5322, longitud mínima de 8 caracteres y hashing Argon2id), respondiendo con <code>201 Created</code> y el schema seguro <code>UserPublic</code> (omitiendo contraseñas, OWASP API2 & API3).</div>
             </div>
         </div>
     </div>
@@ -1002,6 +1114,37 @@ body{
             } else {
                 desktops.forEach(d => d.style.display = 'block');
                 phones.forEach(p => p.style.display = 'block');
+            }
+        }
+
+        function switchPhoneAuth(tab) {
+            const loginView = document.getElementById('phone-auth-login');
+            const registerView = document.getElementById('phone-auth-register');
+            const tabLogin = document.getElementById('phone-tab-login');
+            const tabRegister = document.getElementById('phone-tab-register');
+
+            if (tab === 'login') {
+                if (loginView) loginView.style.display = 'flex';
+                if (registerView) registerView.style.display = 'none';
+                if (tabLogin) {
+                    tabLogin.style.background = '#2563eb';
+                    tabLogin.style.color = '#fff';
+                }
+                if (tabRegister) {
+                    tabRegister.style.background = 'transparent';
+                    tabRegister.style.color = '#94a3b8';
+                }
+            } else {
+                if (loginView) loginView.style.display = 'none';
+                if (registerView) registerView.style.display = 'flex';
+                if (tabRegister) {
+                    tabRegister.style.background = '#2563eb';
+                    tabRegister.style.color = '#fff';
+                }
+                if (tabLogin) {
+                    tabLogin.style.background = 'transparent';
+                    tabLogin.style.color = '#94a3b8';
+                }
             }
         }
     </script>
